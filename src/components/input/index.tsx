@@ -1,5 +1,4 @@
 import { Input, SystemStyleObject } from "@chakra-ui/react";
-import { useState } from "react";
 
 interface IImputComponent{
   border: string;
