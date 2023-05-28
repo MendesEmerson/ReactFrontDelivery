@@ -1,8 +1,13 @@
+import { ChakraProvider } from '@chakra-ui/react'
+import { FooterComponent } from './components/footer'
 
 function App() {
   
   return (
-   <div></div>
+    
+   <ChakraProvider>
+    <FooterComponent />
+   </ChakraProvider>
   )
 }
 
