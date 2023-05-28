@@ -1,8 +1,15 @@
 import { Avatar, WrapItem, Text, Flex, Link } from "@chakra-ui/react";
 import { AiFillGithub, AiFillLinkedin,AiOutlineWhatsApp } from "react-icons/ai";
 
+interface IAvatarProps{
+  name: string;
+  linkedin_link: string;
+  github_link: string;
+  whatsapp_link: string;
+  src: string;
+}
 
-export function AvatarComponent(props){
+export function AvatarComponent(props:IAvatarProps){
   return(
     <div>
       
