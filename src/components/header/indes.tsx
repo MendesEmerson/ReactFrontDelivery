@@ -1,13 +1,17 @@
-import { Box, Button, Flex, Icon, IconButton, Input, Menu, MenuButton, MenuItem, MenuList, Text, Wrap } from "@chakra-ui/react";
+import { Box, Button, Flex, Icon, Menu, MenuButton, MenuItem, MenuList, Text, Wrap, border } from "@chakra-ui/react";
 import { useState } from "react";
-import { MdLogin, MdLogout, MdPersonAddAlt, MdCardTravel, MdArrowDropDown } from "react-icons/md"
+import { MdLogin, MdLogout, MdPersonAddAlt, MdShoppingCart, MdArrowDropDown } from "react-icons/md"
 import { ButtonComponent } from "../button";
 
 export function HeaderComponent() {
     const [isLogin, setIsLogin] = useState()
 
     return (
-        <Box width="100%" height="50px" bg={"blue.700"}>
+        <Box
+            width="100%"
+            height="50px"
+            bg={"blue.700"}
+        >
             <Flex
                 height={"100%"}
                 alignItems={"center"}
@@ -29,14 +33,19 @@ export function HeaderComponent() {
                 </Flex>
 
                 {isLogin ? (
-                    <Flex>
+                    <Flex>                        
                         <Menu>
-                            <MenuButton as={Button} rightIcon={<MdArrowDropDown />}>
-                                Your Cats
+                            <MenuButton
+                                height={"30px"}
+                                width={"120px"}
+                                as={Button}
+                                rightIcon={<MdArrowDropDown />}
+                            >
+                                Menu
                             </MenuButton>
                             <MenuList>
                                 <MenuItem minH='48px'>
-                                    <Icon as={MdCardTravel} />
+                                    <Icon as={MdShoppingCart} />
                                     <span>Carrinho</span>
                                 </MenuItem>
                                 <MenuItem minH='40px'>
