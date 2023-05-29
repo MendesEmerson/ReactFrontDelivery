@@ -1,12 +1,17 @@
-import { ChakraProvider } from "@chakra-ui/react"
-import { HeaderComponent } from "./components/header/indes"
+import { ChakraProvider } from '@chakra-ui/react'
+import { Routers } from './Routes'
+import { BrowserRouter } from 'react-router-dom'
+import { GlobalStyle } from './styles/globalStyles'
 
 function App() {
   
   return (
-   <ChakraProvider>
-      <HeaderComponent/>
-   </ChakraProvider>
+    <BrowserRouter>
+    <ChakraProvider>
+      <GlobalStyle />
+      <Routers />
+    </ChakraProvider>
+   </BrowserRouter>
   )
 }
 

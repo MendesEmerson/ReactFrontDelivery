@@ -1,13 +1,27 @@
-import { Box, Button, Flex, Icon, IconButton, Input, Menu, MenuButton, MenuItem, MenuList, Text, Wrap } from "@chakra-ui/react";
+import { Box, Button, Flex, Icon, Menu, MenuButton, MenuItem, MenuList, Text, Wrap } from "@chakra-ui/react";
 import { useState } from "react";
-import { MdLogin, MdLogout, MdPersonAddAlt, MdCardTravel, MdArrowDropDown } from "react-icons/md"
+import { MdLogin, MdLogout, MdPersonAddAlt, MdShoppingCart, MdArrowDropDown } from "react-icons/md"
 import { ButtonComponent } from "../button";
+import { useNavigate } from "react-router-dom";
 
 export function HeaderComponent() {
     const [isLogin, setIsLogin] = useState()
+    const navigate = useNavigate()
+
+    function handleNavigationLogin(){
+        navigate("/login")
+    }
+
+    function handleNavigationCadastro(){
+        navigate("/cadastro")
+    }
 
     return (
-        <Box width="100%" height="50px" bg={"blue.700"}>
+        <Box
+            width="100%"
+            height="80px"
+            bg={"blue.700"}
+        >
             <Flex
                 height={"100%"}
                 alignItems={"center"}
@@ -26,17 +40,23 @@ export function HeaderComponent() {
                     >
                         Delivery Express
                     </Text>
+                
                 </Flex>
 
                 {isLogin ? (
-                    <Flex>
+                    <Flex>                        
                         <Menu>
-                            <MenuButton as={Button} rightIcon={<MdArrowDropDown />}>
-                                Your Cats
+                            <MenuButton
+                                height={"30px"}
+                                width={"120px"}
+                                as={Button}
+                                rightIcon={<MdArrowDropDown />}
+                            >
+                                Menu
                             </MenuButton>
                             <MenuList>
                                 <MenuItem minH='48px'>
-                                    <Icon as={MdCardTravel} />
+                                    <Icon as={MdShoppingCart} />
                                     <span>Carrinho</span>
                                 </MenuItem>
                                 <MenuItem minH='40px'>
@@ -54,11 +74,11 @@ export function HeaderComponent() {
 
                     >
                         <Wrap width={"120px"} margin={"0 10px"}>
-                            <ButtonComponent icon={MdLogin} label="Login" />
+                            <ButtonComponent icon={MdLogin} label="Login"  onClick={handleNavigationLogin}/>
                         </Wrap>
 
                         <Wrap width={"120px"} marginRight={"50px"}>
-                            <ButtonComponent icon={MdPersonAddAlt} label="Cadastro" />
+                            <ButtonComponent icon={MdPersonAddAlt} label="Cadastro" onClick={handleNavigationCadastro}/>
                         </Wrap>
 
                     </Flex>
