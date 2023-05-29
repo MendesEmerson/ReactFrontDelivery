@@ -17,18 +17,70 @@ import { MdLock, MdLogin, MdVisibility, MdVisibilityOff } from "react-icons/md";
 import { InputComponent } from "../../components/input";
 import { ButtonComponent } from "../../components/button";
 import { useState } from "react";
+import { useAuth } from "../../context/authContext";
+import axiosConfig from "../../axiosConfig";
+import { useNavigate } from "react-router";
 
 export function LoginPage() {
-  function handleFormLogin() {
-    return;
+
+
+  const { login } = useAuth()
+  const navigate = useNavigate()
+  const [selectorAccount, setSelectorAccount] = useState<string>("Entregador");
+  const [username, setUsername] = useState<string>("")
+  const [password, setPassword] = useState<string>("")
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleOnClickNavigateClient = () => {
+    navigate("/client");
+  };
+
+  const handleOnClickNavigateEntregador = () => {
+    navigate("/entregador");
+  };
+
+  async function handleFormLogin(e: any) {
+    e.preventDefault();
+
+    const userCreate = {
+      username,
+      password
+    }
+
+    try {
+
+      if (selectorAccount === "Cliente") {
+        const response = await axiosConfig.post("/login/client", userCreate)
+
+        if (response.status === 200) {
+          const authToken = response.data
+          login(authToken)
+          handleOnClickNavigateClient()
+        }
+      }
+
+      if (selectorAccount === "Entregador") {
+        const response = await axiosConfig.post("/login/deliveryman", userCreate)
+
+        if (response.status === 200) {
+          const authToken = response.data
+          login(authToken)
+          handleOnClickNavigateEntregador()
+        }
+      }
+
+
+    } catch (error) {
+      console.log(error)
+    }
   }
 
-  const [value, setValue] = useState("1");
-  const [showPassword, setShowPassword] = useState(false);
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
+
+
   return (
     <Flex
       height={"100vh"}
@@ -49,65 +101,66 @@ export function LoginPage() {
         borderRadius={"20px"}
       >
         <Box>
-          <FormControl onSubmit={handleFormLogin} height={"100%"}>
-            <Flex justifyContent={"center"} alignItems={"center"}>
-              <Icon as={MdLogin} marginRight={2} fontSize={"30px"} />
-              <Text textAlign={"center"} fontWeight={"bold"} fontSize={"30px"}>
-                Login
-              </Text>
-            </Flex>
-            <FormLabel htmlFor="my-input" marginTop={"24px"}>
-              Nome:
-            </FormLabel>
-            <InputComponent
-              border={"2px"}
-              borderRadius={"12px"}
-              placeholder="Digite seu nome"
-              _hover={{ opacity: 0.8, border: "1px" }}
-            />
-            <FormLabel htmlFor="my-input" marginTop={"24px"}>
-              Usuário:
-            </FormLabel>
-            <InputComponent
-              border={"2px"}
-              borderRadius={"12px"}
-              placeholder="Digite seu usuário"
-              _hover={{ opacity: 0.8, border: "1px" }}
-            />
+          <Flex justifyContent={"center"} alignItems={"center"}>
+            <Icon as={MdLogin} marginRight={2} fontSize={"30px"} />
+            <Text textAlign={"center"} fontWeight={"bold"} fontSize={"30px"}>
+              Login
+            </Text>
+          </Flex>
+          <form onSubmit={handleFormLogin} >
 
-            <FormLabel htmlFor="my-input" marginTop={"24px"}>
-              Senha:
-            </FormLabel>
-            <InputGroup>
+
+            <FormControl height={"100%"}>
+
+              <FormLabel marginTop={"24px"}>
+                Usuário:
+              </FormLabel>
               <InputComponent
-                type={showPassword ? "text" : "password"}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+
                 border={"2px"}
                 borderRadius={"12px"}
-                placeholder="Digite sua senha"
+                placeholder="Digite seu usuário"
                 _hover={{ opacity: 0.8, border: "1px" }}
               />
-              <InputRightElement>
-                {showPassword ? (
-                  <MdVisibilityOff onClick={handleTogglePassword} />
-                ) : (
-                  <MdVisibility onClick={handleTogglePassword} />
-                )}
-              </InputRightElement>
-            </InputGroup>
-            <FormLabel htmlFor="save-me" mt="2">
-              Lembrar minha conta?
-            </FormLabel>
-            <Switch id="choice" />
-            <RadioGroup onChange={setValue} value={value} padding={"4px"}>
-              <Stack direction="row">
-                <Radio value="1">Entregador</Radio>
-                <Radio value="2">Cliente</Radio>
-              </Stack>
-            </RadioGroup>
-            <Wrap marginTop={"28px"}>
-              <ButtonComponent icon={MdLock} label={"Login"} />
-            </Wrap>
-          </FormControl>
+
+              <FormLabel marginTop={"24px"}>
+                Senha:
+              </FormLabel>
+              <InputGroup>
+                <InputComponent
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  type={showPassword ? "text" : "password"}
+                  border={"2px"}
+                  borderRadius={"12px"}
+                  placeholder="Digite sua senha"
+                  _hover={{ opacity: 0.8, border: "1px" }}
+                />
+                <InputRightElement>
+                  {showPassword ? (
+                    <MdVisibilityOff onClick={handleTogglePassword} />
+                  ) : (
+                    <MdVisibility onClick={handleTogglePassword} />
+                  )}
+                </InputRightElement>
+              </InputGroup>
+              <FormLabel mt="2">
+                Lembrar minha conta?
+              </FormLabel>
+              <Switch id="choice" />
+              <RadioGroup value={selectorAccount} padding={"4px"}>
+                <Stack direction="row">
+                  <Radio value="Entregador" onChange={() => setSelectorAccount("Entregador")}>Entregador</Radio>
+                  <Radio value="Cliente" onChange={() => setSelectorAccount("Cliente")}>Cliente</Radio>
+                </Stack>
+              </RadioGroup>
+              <Wrap marginTop={"28px"}>
+                <ButtonComponent icon={MdLock} label={"Login"} type="submit" />
+              </Wrap>
+            </FormControl>
+          </form>
         </Box>
       </Flex>
     </Flex>
