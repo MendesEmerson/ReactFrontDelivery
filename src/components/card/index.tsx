@@ -30,7 +30,7 @@ export function CardComponent({
       justifyContent={"center"}
       height={"45%"}
       width={"45%"}
-      bg={"blue.400"}
+      bg={"whiteAlpha.100"}
       borderRadius={"12px"}
       _hover={{transform: "scale(1.05)", transition:"transform 0.2s"}}
     >

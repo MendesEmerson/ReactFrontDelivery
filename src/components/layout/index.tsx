@@ -10,12 +10,12 @@ export function LayoutComponent() {
       height={"100vh"}
       width={"100%"}
       justifyContent={"center"}
-      minHeight={"calc(100vh - 10rem)"}
+      // minHeight={"calc(100vh - 10rem)"}
 
     >
       <HeaderComponent />
       <Outlet />
-      <FooterComponent/>
+      <FooterComponent />
     </Flex>
   );
 }

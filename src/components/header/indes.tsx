@@ -1,15 +1,25 @@
-import { Box, Button, Flex, Icon, Menu, MenuButton, MenuItem, MenuList, Text, Wrap, border } from "@chakra-ui/react";
+import { Box, Button, Flex, Icon, Menu, MenuButton, MenuItem, MenuList, Text, Wrap } from "@chakra-ui/react";
 import { useState } from "react";
 import { MdLogin, MdLogout, MdPersonAddAlt, MdShoppingCart, MdArrowDropDown } from "react-icons/md"
 import { ButtonComponent } from "../button";
+import { useNavigate } from "react-router-dom";
 
 export function HeaderComponent() {
     const [isLogin, setIsLogin] = useState()
+    const navigate = useNavigate()
+
+    function handleNavigationLogin(){
+        navigate("/login")
+    }
+
+    function handleNavigationCadastro(){
+        navigate("/cadastro")
+    }
 
     return (
         <Box
             width="100%"
-            height="50px"
+            height="80px"
             bg={"blue.700"}
         >
             <Flex
@@ -64,11 +74,11 @@ export function HeaderComponent() {
 
                     >
                         <Wrap width={"120px"} margin={"0 10px"}>
-                            <ButtonComponent icon={MdLogin} label="Login" />
+                            <ButtonComponent icon={MdLogin} label="Login"  onClick={handleNavigationLogin}/>
                         </Wrap>
 
                         <Wrap width={"120px"} marginRight={"50px"}>
-                            <ButtonComponent icon={MdPersonAddAlt} label="Cadastro" />
+                            <ButtonComponent icon={MdPersonAddAlt} label="Cadastro" onClick={handleNavigationCadastro}/>
                         </Wrap>
 
                     </Flex>
