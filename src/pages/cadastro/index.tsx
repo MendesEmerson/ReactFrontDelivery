@@ -47,7 +47,7 @@ export function CadastroPage() {
         opacity={"1"}
         borderRadius={"20px"}
       >
-        <Box overflowY="scroll">
+        <Box>
           <FormControl onSubmit={handleFormLogin}>
             <Flex justifyContent={"center"} alignItems={"center"}>
               <Icon as={MdPersonAdd} marginRight={2} fontSize={"30px"} />

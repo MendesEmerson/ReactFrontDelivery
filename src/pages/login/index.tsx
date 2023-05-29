@@ -48,7 +48,7 @@ export function LoginPage() {
         opacity={"1"}
         borderRadius={"20px"}
       >
-        <Box overflowY="scroll">
+        <Box>
           <FormControl onSubmit={handleFormLogin} height={"100%"}>
             <Flex justifyContent={"center"} alignItems={"center"}>
               <Icon as={MdLogin} marginRight={2} fontSize={"30px"} />
