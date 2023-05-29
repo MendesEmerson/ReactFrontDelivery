@@ -1,38 +1,68 @@
-import { Avatar, WrapItem, Text, Flex, Link } from "@chakra-ui/react";
-import { AiFillGithub, AiFillLinkedin,AiOutlineWhatsApp } from "react-icons/ai";
+import {
+  Avatar,
+  WrapItem,
+  Text,
+  Flex,
+  Link,
+  Heading,
+  CardBody,
+  Stack,
+  CardFooter,
+} from "@chakra-ui/react";
+import {
+  AiFillGithub,
+  AiFillLinkedin,
+  AiOutlineWhatsApp,
+} from "react-icons/ai";
 
-interface IAvatarProps{
+interface IAvatarProps {
   name: string;
   linkedin_link: string;
   github_link: string;
   whatsapp_link: string;
   src: string;
+  description: string;
 }
 
-export function AvatarComponent(props:IAvatarProps){
-  return(
+export function AvatarComponent(props: IAvatarProps) {
+  return (
     <div>
-      
-    <WrapItem>
-        <Avatar size='2xl' name={props.name} src={props.src} />
-      <Flex flexDirection={"column"}>
-      <Text textAlign={"center"} color={"white"} fontWeight={"bold"}>{props.name}</Text>
-        <Flex flexDirection={"row"} justifyContent={"space-evenly"}>
-          <Link href={props.github_link} >
-          <AiFillGithub color={"white"}/>
-          </Link>
+      <WrapItem display={"flex"} justifyContent={"center"} alignItems={"center"}>
+        <Avatar
+          objectFit="cover"
+          maxW={{ base: "100%", sm: "200px" }}
+          size="3xl"
+          name={props.name}
+          src={props.src}
+          
+        />
 
-          <Link href={props.linkedin_link} >
-           <AiFillLinkedin color={"white"}/>
-          </Link>
+        <Stack>
+          <CardBody>
+            <Heading size="md">{props.name}</Heading>
 
-          <Link href={props.whatsapp_link} >
-          <AiOutlineWhatsApp color={"white"}/>
-          </Link>
+            <Text py="2">{props.description}.</Text>
+          </CardBody>
+          <Flex flexDirection={"row"} justifyContent={"justify-around"} width={"100%"}>
+            <CardFooter _hover={{transform: "scale(1.3)", transition:"transform 0.2s"}}>
+              <Link href={props.github_link}>
+                <AiFillGithub color={"black"} size={"28px"} />
+              </Link>
+            </CardFooter>
+            <CardFooter _hover={{transform: "scale(1.3)", transition:"transform 0.2s"}}>
+              <Link href={props.linkedin_link}>
+                <AiFillLinkedin color={"black"} size={"28px"}/>
+              </Link>
+            </CardFooter>
 
-        </Flex>
-      </Flex>
-    </WrapItem>
-</div>
-  )
+            <CardFooter _hover={{transform: "scale(1.3)", transition:"transform 0.2s"}}>
+              <Link href={props.whatsapp_link}>
+                <AiOutlineWhatsApp color={"black"} size={"28px"}/>
+              </Link>
+            </CardFooter>
+          </Flex>
+        </Stack>
+      </WrapItem>
+    </div>
+  );
 }

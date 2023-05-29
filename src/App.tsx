@@ -1,13 +1,17 @@
 import { ChakraProvider } from '@chakra-ui/react'
-import { FooterComponent } from './components/footer'
+import { Routers } from './Routes'
+import { BrowserRouter } from 'react-router-dom'
+import { GlobalStyle } from './styles/globalStyles'
 
 function App() {
   
   return (
-    
-   <ChakraProvider>
-    <FooterComponent />
-   </ChakraProvider>
+    <BrowserRouter>
+    <ChakraProvider>
+      <GlobalStyle />
+      <Routers />
+    </ChakraProvider>
+   </BrowserRouter>
   )
 }
 

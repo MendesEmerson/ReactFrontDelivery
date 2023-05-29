@@ -1,6 +1,7 @@
-import { Box  , Flex, FormControl, FormLabel, Icon, Input, Text, border } from "@chakra-ui/react";
-import { MdLogin } from "react-icons/md";
+import { Box  , Flex, FormControl, FormLabel, Icon, Input, Text, Wrap, border } from "@chakra-ui/react";
+import { MdLock, MdLogin } from "react-icons/md";
 import { InputComponent } from "../input";
+import { ButtonComponent } from "../button";
 
 export function LoginComponent(){
 
@@ -20,7 +21,9 @@ export function LoginComponent(){
       <FormLabel htmlFor="my-input" marginTop={"24px"}>Senha:</FormLabel>
       <InputComponent border={"2px"} borderRadius={"12px"} placeholder="Digite sua senha"_hover={{ opacity: 0.8, border:"1px" }}
       />
-
+      <Wrap marginTop={"48px"}>
+        <ButtonComponent icon={MdLock} label={"Login"}/>
+      </Wrap>
       </FormControl>
     </Box>
   )
