@@ -1,5 +1,5 @@
-import { Center, Flex, Heading, Stack, Text, Wrap } from "@chakra-ui/layout";
-import { Card, CardBody, Image, ImageProps } from "@chakra-ui/react";
+import { Flex, Heading, Stack, Text } from "@chakra-ui/layout";
+import { Card, CardBody, Image } from "@chakra-ui/react";
 
 interface IItemCardProps {
     itemName: string;
@@ -27,7 +27,8 @@ export function ItemCardComponent({
                 justifyContent={"center"}
                 alignItems={"center"}
                 height={"110px"}
-                width={"75%"}
+                width={"100%"}
+                maxWidth={"425px"}
                 bg={"blue.400"}
                 borderRadius={"24px"}
                 _hover={{ transform: "scale(1.05)", transition: "transform 0.2s" }}
