@@ -1,6 +1,7 @@
 import { Flex } from "@chakra-ui/react";
 import { Outlet } from "react-router-dom";
 import { HeaderComponent } from "../header/indes";
+import FooterComponent from "../footer";
 
 export function LayoutComponent() {
   return (
@@ -14,6 +15,7 @@ export function LayoutComponent() {
     >
       <HeaderComponent />
       <Outlet />
+      <FooterComponent/>
     </Flex>
   );
 }
