@@ -4,6 +4,7 @@ import { ContactPage } from "./pages/contacts"
 import { LoginPage } from "./pages/login"
 import { CadastroPage } from "./pages/cadastro"
 import { EntregadorPage } from "./pages/entregador"
+import { ClientePage } from "./pages/cliente"
 
 export const Routers = () => {
 
@@ -14,6 +15,7 @@ export const Routers = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/cadastro" element={<CadastroPage />} />
         <Route path="/entregador" element={<EntregadorPage/>}/>
+        <Route path="/cliente" element={<ClientePage/>}/>
       </Route>
     </Routes>
   )
