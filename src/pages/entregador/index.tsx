@@ -2,9 +2,9 @@ import { Flex } from "@chakra-ui/layout";
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/tabs";
 import { useState } from "react";
 import { ItemCardComponent } from "../../components/cardItem";
-import { Image } from "@chakra-ui/image";
 
 interface IItem {
+    id: string;
     itemName: string;
     clientName: string;
     dataPedido: string;
@@ -14,12 +14,14 @@ interface IItem {
 export function EntregadorPage() {
     const [entregasDisponiveis, setEntregasDisponiveis] = useState<IItem[]>([
         {
+            id: "1",
             itemName: "Pizza de Calabresa",
             clientName: "Emerson",
             dataPedido: "28/05/2023 23:25",
             image: "https://pastapizza.com.br/wp-content/uploads/2017/07/Pizza-Pizzaria-Forno-Forza-Express.jpg"
         },
         {
+            id:"2",
             itemName: "Hamburguer",
             clientName: "Juan",
             dataPedido: "28/05/2023 23:05",
@@ -43,8 +45,8 @@ export function EntregadorPage() {
                 </TabList>
                 <TabPanels>
                     <TabPanel>
-                        {entregasDisponiveis.map((entrega, index) => (
-                            <ItemCardComponent
+                        {entregasDisponiveis.map((entrega,) => (
+                            <ItemCardComponent key={entrega.id}
                                 clientName={entrega.clientName}
                                 itemName={entrega.itemName}
                                 dataPedido={entrega.dataPedido}
