@@ -9,7 +9,8 @@ export function LayoutComponent() {
       flexDirection={"column"}
       height={"100vh"}
       width={"100%"}
-      justifyContent={"center"}
+      justifyContent={"space-between"}
+      
       // minHeight={"calc(100vh - 10rem)"}
 
     >
