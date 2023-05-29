@@ -22,7 +22,7 @@ export function CadastroPage() {
                 alignItems={"center"}
                 bg="whiteAlpha.400" p="4"
                 width={"30%"}
-                height={"78%"}
+                height={"84%"}
                 opacity={"1"}
                 borderRadius={"20px"}
             >

@@ -22,7 +22,7 @@ export function LoginPage() {
                 alignItems={"center"}
                 bg="whiteAlpha.400" p="4"
                 width={"30%"}
-                height={"60%"}
+                height={"70%"}
                 opacity={"1"}
                 borderRadius={"20px"}
             >
