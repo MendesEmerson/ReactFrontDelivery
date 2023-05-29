@@ -17,47 +17,70 @@ import {
 
 interface IAvatarProps {
   name: string;
-  linkedin_link: string;
-  github_link: string;
-  whatsapp_link: string;
+  linkedinLink: string;
+  githubLink: string;
+  whatsappLink: string;
   src: string;
   description: string;
+  anotherDescription?: string;
 }
 
-export function AvatarComponent(props: IAvatarProps) {
+export function AvatarComponent({
+  description,
+  githubLink,
+  linkedinLink,
+  name,
+  src,
+  whatsappLink,
+  anotherDescription,
+}: IAvatarProps) {
   return (
     <div>
-      <WrapItem display={"flex"} justifyContent={"center"} alignItems={"center"}>
+      <WrapItem
+        display={"flex"}
+        justifyContent={"center"}
+        alignItems={"center"}
+      >
         <Avatar
           objectFit="cover"
           maxW={{ base: "100%", sm: "200px" }}
           size="3xl"
-          name={props.name}
-          src={props.src}
-          
+          name={name}
+          src={src}
         />
 
         <Stack>
           <CardBody>
-            <Heading size="md">{props.name}</Heading>
+            <Heading size="md">{name}</Heading>
 
-            <Text py="2">{props.description}.</Text>
+            <Text py="2">{description}</Text>
+            <Text >{anotherDescription}</Text>
           </CardBody>
-          <Flex flexDirection={"row"} justifyContent={"justify-around"} width={"100%"}>
-            <CardFooter _hover={{transform: "scale(1.3)", transition:"transform 0.2s"}}>
-              <Link href={props.github_link}>
+          <Flex
+            flexDirection={"row"}
+            justifyContent={"justify-around"}
+            width={"100%"}
+          >
+            <CardFooter
+              _hover={{ transform: "scale(1.3)", transition: "transform 0.2s" }}
+            >
+              <Link href={githubLink} isExternal>
                 <AiFillGithub color={"black"} size={"28px"} />
               </Link>
             </CardFooter>
-            <CardFooter _hover={{transform: "scale(1.3)", transition:"transform 0.2s"}}>
-              <Link href={props.linkedin_link}>
-                <AiFillLinkedin color={"black"} size={"28px"}/>
+            <CardFooter
+              _hover={{ transform: "scale(1.3)", transition: "transform 0.2s" }}
+            >
+              <Link href={linkedinLink} isExternal>
+                <AiFillLinkedin color={"black"} size={"28px"} />
               </Link>
             </CardFooter>
 
-            <CardFooter _hover={{transform: "scale(1.3)", transition:"transform 0.2s"}}>
-              <Link href={props.whatsapp_link}>
-                <AiOutlineWhatsApp color={"black"} size={"28px"}/>
+            <CardFooter
+              _hover={{ transform: "scale(1.3)", transition: "transform 0.2s" }}
+            >
+              <Link href={whatsappLink} isExternal>
+                <AiOutlineWhatsApp color={"black"} size={"28px"} />
               </Link>
             </CardFooter>
           </Flex>

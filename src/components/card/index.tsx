@@ -3,20 +3,22 @@ import { AvatarComponent } from "../avatar";
 
 interface ICardComponentProps {
   description: string;
-  github_link: string;
-  whatsapp_link: string;
-  linkedin_link: string;
+  anotherDescription?: string;
+  githubLink: string;
+  whatsappLink: string;
+  linkedinLink: string;
   name: string;
   src: string;
 }
 
 export function CardComponent({
   description,
-  github_link,
-  linkedin_link,
+  anotherDescription,
+  githubLink: github_link,
+  linkedinLink: linkedin_link,
   name,
   src,
-  whatsapp_link,
+  whatsappLink: whatsapp_link,
 }: ICardComponentProps) {
   return (
     <Card
@@ -26,18 +28,20 @@ export function CardComponent({
       variant="outline"
       display={"flex"}
       justifyContent={"center"}
-      height={"40%"}
-      width={"40%"}
+      height={"45%"}
+      width={"45%"}
       bg={"blue.400"}
       borderRadius={"12px"}
+      _hover={{transform: "scale(1.05)", transition:"transform 0.2s"}}
     >
       <div>
         <Flex>
           <AvatarComponent            
             description={description}
-            github_link={github_link}
-            whatsapp_link={whatsapp_link}
-            linkedin_link={linkedin_link}
+            anotherDescription={anotherDescription}
+            githubLink={github_link}
+            whatsappLink={whatsapp_link}
+            linkedinLink={linkedin_link}
             src={src}
             name={name}
           />
