@@ -11,6 +11,7 @@ import {
   Stack,
   Text,
   Wrap,
+  useToast,
 } from "@chakra-ui/react";
 import { MdPersonAdd, MdVisibility, MdVisibilityOff } from "react-icons/md";
 import { InputComponent } from "../../components/input";
@@ -22,6 +23,7 @@ import axiosConfig from "../../axiosConfig";
 
 export function CadastroPage() {
   const { login } = useAuth();
+  const toast = useToast()
   const [showPassword, setShowPassword] = useState(false);
   const [selectorAccount, setSelectorAccount] = useState<string>("Entregador");
   const [username, setUsername] = useState<string>("");
@@ -46,28 +48,47 @@ export function CadastroPage() {
       name,
     };
 
-    try {
-      if (selectorAccount === "Cliente") {
-        const response = await axiosConfig.post("/client", userCreate);
-        if (response.status === 201) {
-          const authToken = response.data;
-          login(authToken);
-          handleOnClickNavigateLogin();
+
+    if (!username || !password || !name) {
+      toast({
+        title: "Campos Obrigatórios!",
+        description: "Verifique os campos Nome, Usuário e Senha",
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
+    } else if (password != checkPassword) {
+      toast({
+        title: "Senhas diferentes!",
+        description: "Verifique os campos Senha e Confirme sua senha",
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
+    } else {
+
+
+
+      try {
+        if (selectorAccount === "Cliente") {
+          const response = await axiosConfig.post("/client", userCreate);
+          if (response.status === 201) {
+            const authToken = response.data;
+            login(authToken);
+            handleOnClickNavigateLogin();
+          }
         }
-      }
-      if (selectorAccount === "Entregador") {
-        const response = await axiosConfig.post("/deliveryman", userCreate);
-        if (response.status === 201) {
-          const authToken = response.data;
-          login(authToken);
-          handleOnClickNavigateLogin();
+        if (selectorAccount === "Entregador") {
+          const response = await axiosConfig.post("/deliveryman", userCreate);
+          if (response.status === 201) {
+            const authToken = response.data;
+            login(authToken);
+            handleOnClickNavigateLogin();
+          }
         }
+      } catch (error) {
+        console.log(error);
       }
-      if (password != checkPassword) {
-        alert("Senha Diferente");
-      }
-    } catch (error) {
-      console.log(error);
     }
   }
 

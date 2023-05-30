@@ -8,7 +8,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <ChakraProvider>
+      <ChakraProvider toastOptions={{ defaultOptions: { position: 'bottom' } }}>
         <AuthProvider>
           <GlobalStyle />
           <Routers />

@@ -12,6 +12,7 @@ import {
   Switch,
   Text,
   Wrap,
+  useToast,
 } from "@chakra-ui/react";
 import { MdLock, MdLogin, MdVisibility, MdVisibilityOff } from "react-icons/md";
 import { InputComponent } from "../../components/input";
@@ -23,6 +24,7 @@ import { useNavigate } from "react-router";
 
 export function LoginPage() {
   const { login } = useAuth();
+  const toast = useToast()
   const navigate = useNavigate();
   const [selectorAccount, setSelectorAccount] = useState<string>("Entregador");
   const [username, setUsername] = useState<string>("");
@@ -37,6 +39,7 @@ export function LoginPage() {
     navigate("/entregador");
   };
 
+
   async function handleFormLogin(e: any) {
     e.preventDefault();
 
@@ -47,7 +50,13 @@ export function LoginPage() {
 
     try {
       if (selectorAccount === "Cliente") {
-        const response = await axiosConfig.post("/login/client", userCreate);
+        const response = await axiosConfig.post(
+          "/login/client",
+          userCreate
+        );
+
+        console.log(response.status)
+
 
         if (response.status === 200) {
           const authToken = response.data;
@@ -68,8 +77,18 @@ export function LoginPage() {
           handleOnClickNavigateEntregador();
         }
       }
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      const typeError = error.response
+      if (typeError.status === 400) {
+        toast({
+          title: "Acesso negado!",
+          description: typeError.data.message,
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        });
+      }
+      console.log(typeError);
     }
   }
 
