@@ -5,38 +5,76 @@ import {
   TabPanel,
   TabPanels,
   Tabs,
+  Text,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ItemCardComponent } from "../../components/cardItem";
+import axiosConfig from "../../axiosConfig";
+
+
+interface IDeliveryman {
+  name: string
+}
 
 interface IItem {
   id: string;
   item_name: string;
-  client: IClient;
+  deliveryman?: IDeliveryman;
   created_at: string;
   end_at?: string
   image: string
 }
 
 export function ClientePage() {
-  const [pedidosEmAndamento, setPedidosEmAndamento] = useState<IItem[]>([
-    {
-      id: "1",
-      itemName: "Pizza de Calabresa",
-      clientName: "Emerson",
-      dataPedido: "28/05/2023 23:25",
-      image:
-        "https://pastapizza.com.br/wp-content/uploads/2017/07/Pizza-Pizzaria-Forno-Forza-Express.jpg",
-    },
-    {
-      id: "2",
-      itemName: "Hamburguer",
-      clientName: "Juan",
-      dataPedido: "28/05/2023 23:05",
-      image:
-        "https://supermercadosrondon.com.br/guiadecarnes/images/postagens/quer_fazer_hamburger_artesanal_perfeito_2019-05-14.jpg",
-    },
-  ]);
+
+  const [pedidosRealizados, setpedidosRealizados] = useState<IItem[]>()
+  const [pedidosEmAndamento, setPedidosEmAndamento] = useState<IItem[]>()
+  const [pedidosFinalizados, setPedidosFinalizados] = useState<IItem[]>()
+
+  useEffect(() => {
+    async function HandlePedidosRealizados() {
+      try {
+        const response = await axiosConfig.get("/client/deliveries")
+        const itensDisponiveis = response.data
+
+        setpedidosRealizados(itensDisponiveis)
+
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    HandlePedidosRealizados()
+  }, [])
+
+
+  useEffect(() => {
+    async function HandlePedidosEmAndamento() {
+      try {
+        const response = await axiosConfig.get("/client/deliveries")
+        const itensDisponiveis = response.data
+
+        setPedidosEmAndamento(itensDisponiveis)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    HandlePedidosEmAndamento()
+  }, [])
+
+  useEffect(() => {
+    async function HandlePedidosFinalizados() {
+      try {
+        const response = await axiosConfig.get("/client/deliveries")
+        const itensDisponiveis = response.data
+
+        setPedidosFinalizados(itensDisponiveis)
+
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    HandlePedidosFinalizados()
+  }, [])
 
   return (
     <Flex
@@ -48,27 +86,70 @@ export function ClientePage() {
     >
       <Tabs variant="soft-rounded" colorScheme="green" margin={"20px"}>
         <TabList>
-          <Tab>Pedidos aguardando entregador</Tab>
-          <Tab>Pedidos em andamento</Tab>
-          <Tab>Pedidos entregues</Tab>
+          <Tab>Pedidos Realizados</Tab>
+          <Tab>Pedidos em Andamento</Tab>
+          <Tab>Pedidos Finalizadas</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
-            {pedidosEmAndamento.map((entrega) => (
-              <ItemCardComponent
-                key={entrega.id}
-                clientName={entrega.clientName}
-                dataPedido={entrega.dataPedido}
-                image={entrega.image}
-                itemName={entrega.itemName}
-              />
-            ))}
+            {
+              pedidosRealizados && pedidosRealizados.length ?
+                (
+                  pedidosRealizados.map((entrega: IItem) => (
+                    <ItemCardComponent key={entrega.id}
+                      itemName={entrega.item_name}
+                      dataPedido={entrega.created_at}
+                      image={entrega.image}
+                    />
+                  ))
+                ) :
+                (
+                  <Text fontSize={"24px"}>
+                    Nenhuma entrega disponivel no momento
+                  </Text>
+                )
+            }
+
           </TabPanel>
           <TabPanel>
-            <p>Lista de todos os pedidos entregues!</p>
+            {
+              pedidosEmAndamento && pedidosEmAndamento.length ?
+                (
+                  pedidosEmAndamento.map((entrega: IItem) => (
+                    <ItemCardComponent key={entrega.id}
+                      // clientName={entrega.deliveryman.name}
+                      itemName={entrega.item_name}
+                      dataPedido={entrega.created_at}
+                      image={entrega.image}
+                    />
+                  ))
+                ) :
+                (
+                  <Text fontSize={"24px"}>
+                    Nenhuma entrega em andamento no momento
+                  </Text>
+                )
+            }
           </TabPanel>
           <TabPanel>
-            <p>Lista de todos os pedidos entregues!</p>
+            {
+              pedidosFinalizados && pedidosFinalizados.length ?
+                (
+                  pedidosFinalizados.map((entrega: IItem) => (
+                    <ItemCardComponent key={entrega.id}
+                      // clientName={entrega.deliveryman.name}
+                      itemName={entrega.item_name}
+                      dataPedido={entrega.created_at}
+                      image={entrega.image}
+                    />
+                  ))
+                ) :
+                (
+                  <Text fontSize={"24px"}>
+                    Nenhuma entrega em andamento no momento
+                  </Text>
+                )
+            }
           </TabPanel>
         </TabPanels>
       </Tabs>

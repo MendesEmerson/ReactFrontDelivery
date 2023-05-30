@@ -3,7 +3,7 @@ import { Card, CardBody, Image } from "@chakra-ui/react";
 
 interface IItemCardProps {
     itemName: string;
-    clientName: string;
+    clientName?: string;
     dataPedido: string;
     dataFinalização?: string;
     image: string
@@ -27,7 +27,7 @@ export function ItemCardComponent({
                 justifyContent={"center"}
                 alignItems={"center"}
                 height={"110px"}
-                width={"100%"}
+                width={"60%"}
                 maxWidth={"425px"}
                 bg={"blue.400"}
                 borderRadius={"24px"}
@@ -41,7 +41,7 @@ export function ItemCardComponent({
                         <CardBody>
                             <Heading size="md">{itemName}</Heading>
 
-                            <Text >Cliente: {clientName}</Text>
+                            {clientName && clientName?.length > 0 ? (<Text >Cliente: {clientName}</Text>): null}
                             <Text >Data do pedido: {dataPedido}</Text>
                             {dataFinalização && (
                                 <Text>{dataFinalização}</Text>
