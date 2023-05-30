@@ -20,6 +20,10 @@ interface IItem {
 export function EntregadorPage() {
 
     const [entregasDisponiveis, setEntregasDisponiveis] = useState<IItem[]>()
+    const [entregasEmAndamento, setEntregasEmAndamento] = useState<IItem[]>()
+    const [entregasFinalizada, setEntregasFinalizada] = useState<IItem[]>()
+
+
 
 
     useEffect(() => {
@@ -35,6 +39,37 @@ export function EntregadorPage() {
             }
         }
         HandleEntregasDisponiveis()
+    }, [])
+
+
+    useEffect(() => {
+        async function HandleEntregasEmAndamento() {
+            try {
+                const response = await axiosConfig.get("/deliveryman/deliveries")
+                const itensDisponiveis = response.data
+
+                setEntregasEmAndamento(itensDisponiveis)
+
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        HandleEntregasEmAndamento()
+    }, [])
+
+    useEffect(() => {
+        async function HandleEntregasFinalizadas() {
+            try {
+                const response = await axiosConfig.get("/deliveryman/deliveries/finish")
+                const itensDisponiveis = response.data
+
+                setEntregasFinalizada(itensDisponiveis)
+
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        HandleEntregasFinalizadas()
     }, [])
 
 
@@ -75,11 +110,44 @@ export function EntregadorPage() {
 
                     </TabPanel>
                     <TabPanel>
-                        <Text fontSize={"24px"}>
-                            Nenhuma entrega disponivel no momento
-                        </Text>                    </TabPanel>
+                        {
+                            entregasEmAndamento && entregasEmAndamento.length ?
+                                (
+                                    entregasEmAndamento.map((entrega: IItem) => (
+                                        <ItemCardComponent key={entrega.id}
+                                            clientName={entrega.client.name}
+                                            itemName={entrega.item_name}
+                                            dataPedido={entrega.created_at}
+                                            image={entrega.image}
+                                        />
+                                    ))
+                                ) :
+                                (
+                                    <Text fontSize={"24px"}>
+                                        Nenhuma entrega em andamento no momento
+                                    </Text>
+                                )
+                        }
+                    </TabPanel>
                     <TabPanel>
-                        <p>Aqui vai entrar uma lista com todas as entregas realizadas!</p>
+                        {
+                            entregasFinalizada && entregasFinalizada.length ?
+                                (
+                                    entregasFinalizada.map((entrega: IItem) => (
+                                        <ItemCardComponent key={entrega.id}
+                                            clientName={entrega.client.name}
+                                            itemName={entrega.item_name}
+                                            dataPedido={entrega.created_at}
+                                            image={entrega.image}
+                                        />
+                                    ))
+                                ) :
+                                (
+                                    <Text fontSize={"24px"}>
+                                        Nenhuma entrega em andamento no momento
+                                    </Text>
+                                )
+                        }
                     </TabPanel>
                 </TabPanels>
             </Tabs>
