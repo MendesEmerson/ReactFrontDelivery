@@ -22,17 +22,15 @@ import axiosConfig from "../../axiosConfig";
 import { useNavigate } from "react-router";
 
 export function LoginPage() {
-
-
-  const { login } = useAuth()
-  const navigate = useNavigate()
+  const { login } = useAuth();
+  const navigate = useNavigate();
   const [selectorAccount, setSelectorAccount] = useState<string>("Entregador");
-  const [username, setUsername] = useState<string>("")
-  const [password, setPassword] = useState<string>("")
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState(false);
 
   const handleOnClickNavigateClient = () => {
-    navigate("/client");
+    navigate("/cliente");
   };
 
   const handleOnClickNavigateEntregador = () => {
@@ -44,42 +42,40 @@ export function LoginPage() {
 
     const userCreate = {
       username,
-      password
-    }
+      password,
+    };
 
     try {
-
       if (selectorAccount === "Cliente") {
-        const response = await axiosConfig.post("/login/client", userCreate)
+        const response = await axiosConfig.post("/login/client", userCreate);
 
         if (response.status === 200) {
-          const authToken = response.data
-          login(authToken)
-          handleOnClickNavigateClient()
+          const authToken = response.data;
+          login(authToken);
+          handleOnClickNavigateClient();
         }
       }
 
       if (selectorAccount === "Entregador") {
-        const response = await axiosConfig.post("/login/deliveryman", userCreate)
+        const response = await axiosConfig.post(
+          "/login/deliveryman",
+          userCreate
+        );
 
         if (response.status === 200) {
-          const authToken = response.data
-          login(authToken)
-          handleOnClickNavigateEntregador()
+          const authToken = response.data;
+          login(authToken);
+          handleOnClickNavigateEntregador();
         }
       }
-
-
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
-
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
-
 
   return (
     <Flex
@@ -107,27 +103,19 @@ export function LoginPage() {
               Login
             </Text>
           </Flex>
-          <form onSubmit={handleFormLogin} >
-
-
+          <form onSubmit={handleFormLogin}>
             <FormControl height={"100%"}>
-
-              <FormLabel marginTop={"24px"}>
-                Usuário:
-              </FormLabel>
+              <FormLabel marginTop={"24px"}>Usuário:</FormLabel>
               <InputComponent
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-
                 border={"2px"}
                 borderRadius={"12px"}
                 placeholder="Digite seu usuário"
                 _hover={{ opacity: 0.8, border: "1px" }}
               />
 
-              <FormLabel marginTop={"24px"}>
-                Senha:
-              </FormLabel>
+              <FormLabel marginTop={"24px"}>Senha:</FormLabel>
               <InputGroup>
                 <InputComponent
                   value={password}
@@ -146,14 +134,22 @@ export function LoginPage() {
                   )}
                 </InputRightElement>
               </InputGroup>
-              <FormLabel mt="2">
-                Lembrar minha conta?
-              </FormLabel>
+              <FormLabel mt="2">Lembrar minha conta?</FormLabel>
               <Switch id="choice" />
               <RadioGroup value={selectorAccount} padding={"4px"}>
                 <Stack direction="row">
-                  <Radio value="Entregador" onChange={() => setSelectorAccount("Entregador")}>Entregador</Radio>
-                  <Radio value="Cliente" onChange={() => setSelectorAccount("Cliente")}>Cliente</Radio>
+                  <Radio
+                    value="Entregador"
+                    onChange={() => setSelectorAccount("Entregador")}
+                  >
+                    Entregador
+                  </Radio>
+                  <Radio
+                    value="Cliente"
+                    onChange={() => setSelectorAccount("Cliente")}
+                  >
+                    Cliente
+                  </Radio>
                 </Stack>
               </RadioGroup>
               <Wrap marginTop={"28px"}>
