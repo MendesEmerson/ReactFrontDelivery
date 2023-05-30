@@ -83,7 +83,7 @@ export function LoginPage() {
 
   return (
     <Flex
-      height={"100vh"}
+      minH={"90vh"}
       width={"100%"}
       justifyContent={"center"}
       alignItems={"center"}

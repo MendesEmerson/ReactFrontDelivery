@@ -4,7 +4,7 @@ interface ButtonComponentProps {
   icon?: React.ElementType<IconProps>;
   label: string;
   color?: string;
-  type: "button" | "submit" | "reset" | undefined
+  type?: "button" | "submit" | "reset" | undefined
   onClick?: () => void
 }
 

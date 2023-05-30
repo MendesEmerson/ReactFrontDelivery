@@ -6,7 +6,8 @@ export function ContactPage() {
     <Flex
       justifyContent={"space-around"}
       alignItems={"center"}
-      height={"100vh"}
+      minH={"90vh"}
+
     >
       <CardComponent
         description="Desenvolvedor Fullstack | Node | React | Java"

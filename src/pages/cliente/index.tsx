@@ -39,7 +39,7 @@ export function ClientePage() {
 
   return (
     <Flex
-      height={"100vh"}
+      minH={"90vh"}
       width={"100%"}
       justifyContent={"flex-start"}
       alignItems={"center"}

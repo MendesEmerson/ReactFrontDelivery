@@ -1,20 +1,28 @@
 import { Box, Button, Flex, Icon, Menu, MenuButton, MenuItem, MenuList, Text, Wrap } from "@chakra-ui/react";
-import { useState } from "react";
 import { MdLogin, MdLogout, MdPersonAddAlt, MdShoppingCart, MdArrowDropDown } from "react-icons/md"
 import { ButtonComponent } from "../button";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/authContext";
 
 export function HeaderComponent() {
-    const [isLogin, setIsLogin] = useState()
+
+    const { isLoggedIn, logout } = useAuth()
     const navigate = useNavigate()
 
-    function handleNavigationLogin(){
+    function handleNavigationLogin() {
         navigate("/login")
     }
 
-    function handleNavigationCadastro(){
+    function handleNavigationCadastro() {
         navigate("/cadastro")
     }
+
+    function handleLogout() {
+        logout()
+        navigate("/login")
+    }
+
+    console.log(isLoggedIn)
 
     return (
         <Box
@@ -40,14 +48,15 @@ export function HeaderComponent() {
                     >
                         Delivery Express
                     </Text>
-                
+
                 </Flex>
 
-                {isLogin ? (
-                    <Flex>                        
+                {isLoggedIn ? (
+                    <Flex width={"50%"}
+                        alignItems={"Center"}
+                        justifyContent={"space-around"}>
                         <Menu>
                             <MenuButton
-                                height={"30px"}
                                 width={"120px"}
                                 as={Button}
                                 rightIcon={<MdArrowDropDown />}
@@ -65,6 +74,14 @@ export function HeaderComponent() {
                                 </MenuItem>
                             </MenuList>
                         </Menu>
+
+                        <Wrap width={"120px"} >
+                            <ButtonComponent
+                                icon={MdLogout}
+                                label="Logout"
+                                onClick={handleLogout}
+                            />
+                        </Wrap>
                     </Flex>
                 ) : (
                     <Flex
@@ -74,11 +91,11 @@ export function HeaderComponent() {
 
                     >
                         <Wrap width={"120px"} margin={"0 10px"}>
-                            <ButtonComponent icon={MdLogin} label="Login"  onClick={handleNavigationLogin}/>
+                            <ButtonComponent icon={MdLogin} label="Login" onClick={handleNavigationLogin} />
                         </Wrap>
 
                         <Wrap width={"120px"} marginRight={"50px"}>
-                            <ButtonComponent icon={MdPersonAddAlt} label="Cadastro" onClick={handleNavigationCadastro}/>
+                            <ButtonComponent icon={MdPersonAddAlt} label="Cadastro" onClick={handleNavigationCadastro} />
                         </Wrap>
 
                     </Flex>
