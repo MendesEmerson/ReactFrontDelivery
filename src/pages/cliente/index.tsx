@@ -11,10 +11,11 @@ import { ItemCardComponent } from "../../components/cardItem";
 
 interface IItem {
   id: string;
-  itemName: string;
-  clientName: string;
-  dataPedido: string;
-  image: string;
+  item_name: string;
+  client: IClient;
+  created_at: string;
+  end_at?: string
+  image: string
 }
 
 export function ClientePage() {
@@ -47,6 +48,7 @@ export function ClientePage() {
     >
       <Tabs variant="soft-rounded" colorScheme="green" margin={"20px"}>
         <TabList>
+          <Tab>Pedidos aguardando entregador</Tab>
           <Tab>Pedidos em andamento</Tab>
           <Tab>Pedidos entregues</Tab>
         </TabList>
@@ -61,6 +63,9 @@ export function ClientePage() {
                 itemName={entrega.itemName}
               />
             ))}
+          </TabPanel>
+          <TabPanel>
+            <p>Lista de todos os pedidos entregues!</p>
           </TabPanel>
           <TabPanel>
             <p>Lista de todos os pedidos entregues!</p>
