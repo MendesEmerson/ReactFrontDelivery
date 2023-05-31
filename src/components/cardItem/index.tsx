@@ -17,24 +17,24 @@ export function ItemCardComponent({
     image
 }: IItemCardProps) {
     return (
-        <Flex flexDirection="column" justifyContent="center" margin="25px" width={"90%"}>
+        <Flex flexDirection="column" justifyContent="center" margin="25px" width={"90%"} alignItems={"center"}>
             <Card
-                padding={"10px"}
+                padding={"15px"}
                 direction={{ base: "column", sm: "row" }}
                 overflow="hidden"
                 variant="outline"
                 display={"flex"}
                 justifyContent={"center"}
                 alignItems={"center"}
-                height={"110px"}
-                width={"60%"}
+                height={"auto"}
+                width={"85%"}
                 maxWidth={"425px"}
-                bg={"blue.400"}
+                bg={"whiteAlpha.300"}
                 borderRadius={"24px"}
-                _hover={{ transform: "scale(1.05)", transition: "transform 0.2s" }}
+                _hover={{ transform: "scale(1.05)", transition: "transform 0.25s" }}
             >
                 <Flex alignItems={'Center'}>
-                    <Image borderRadius={"12px"} boxSize={"85px"} src={image} />
+                    <Image objectFit={"cover"} borderRadius={"12px"} boxSize={"90px"} src={image} />
 
 
                     <Stack>
