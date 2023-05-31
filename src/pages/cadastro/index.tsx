@@ -42,6 +42,7 @@ export function CadastroPage() {
 
   async function handleCreateUser(e: any) {
     e.preventDefault();
+    
     const userCreate = {
       username,
       password,
@@ -54,7 +55,7 @@ export function CadastroPage() {
         title: "Campos Obrigatórios!",
         description: "Verifique os campos Nome, Usuário e Senha",
         status: "error",
-        duration: 4000,
+        duration: 3000,
         isClosable: true,
       });
     } else if (password != checkPassword) {
@@ -62,7 +63,7 @@ export function CadastroPage() {
         title: "Senhas diferentes!",
         description: "Verifique os campos Senha e Confirme sua senha",
         status: "error",
-        duration: 4000,
+        duration: 3000,
         isClosable: true,
       });
     } else {

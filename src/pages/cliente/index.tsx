@@ -31,6 +31,8 @@ export function ClientePage() {
   const [pedidosEmAndamento, setPedidosEmAndamento] = useState<IItem[]>()
   const [pedidosFinalizados, setPedidosFinalizados] = useState<IItem[]>()
 
+  const imagem = "https://blog.hurb.com/wp-content/uploads/2020/02/feijoada-1140x675.png"
+
   useEffect(() => {
     async function HandlePedidosRealizados() {
       try {
@@ -50,7 +52,7 @@ export function ClientePage() {
   useEffect(() => {
     async function HandlePedidosEmAndamento() {
       try {
-        const response = await axiosConfig.get("/client/deliveries")
+        const response = await axiosConfig.get("/client/deliveries/accepted")
         const itensDisponiveis = response.data
 
         setPedidosEmAndamento(itensDisponiveis)
@@ -84,9 +86,9 @@ export function ClientePage() {
       alignItems={"center"}
       flexDirection={"column"}
     >
-      <Tabs variant="soft-rounded" colorScheme="green" margin={"20px"}>
+      <Tabs variant="solid-rounded" colorScheme="blue" margin={"20px"}>
         <TabList>
-          <Tab>Pedidos Realizados</Tab>
+          <Tab >Pedidos Realizados</Tab>
           <Tab>Pedidos em Andamento</Tab>
           <Tab>Pedidos Finalizadas</Tab>
         </TabList>
@@ -97,9 +99,11 @@ export function ClientePage() {
                 (
                   pedidosRealizados.map((entrega: IItem) => (
                     <ItemCardComponent key={entrega.id}
+                      typeCard="Entregador"
+
                       itemName={entrega.item_name}
                       dataPedido={entrega.created_at}
-                      image={entrega.image}
+                      image={imagem}
                     />
                   ))
                 ) :
@@ -116,11 +120,13 @@ export function ClientePage() {
               pedidosEmAndamento && pedidosEmAndamento.length ?
                 (
                   pedidosEmAndamento.map((entrega: IItem) => (
-                    <ItemCardComponent key={entrega.id}
-                      // clientName={entrega.deliveryman.name}
+                    <ItemCardComponent
+                      key={entrega.id}
+                      typeCard="Entregador"
+                      username={entrega.deliveryman?.name}
                       itemName={entrega.item_name}
                       dataPedido={entrega.created_at}
-                      image={entrega.image}
+                      image={imagem}
                     />
                   ))
                 ) :
@@ -137,10 +143,12 @@ export function ClientePage() {
                 (
                   pedidosFinalizados.map((entrega: IItem) => (
                     <ItemCardComponent key={entrega.id}
+                      typeCard="Entregador"
+
                       // clientName={entrega.deliveryman.name}
                       itemName={entrega.item_name}
                       dataPedido={entrega.created_at}
-                      image={entrega.image}
+                      image={imagem}
                     />
                   ))
                 ) :

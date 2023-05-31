@@ -94,7 +94,7 @@ export function EntregadorPage() {
                                 (
                                     entregasDisponiveis.map((entrega: IItem) => (
                                         <ItemCardComponent key={entrega.id}
-                                            clientName={entrega.client.name}
+                                            username={entrega.client.name}
                                             itemName={entrega.item_name}
                                             dataPedido={entrega.created_at}
                                             image={entrega.image}
@@ -115,7 +115,7 @@ export function EntregadorPage() {
                                 (
                                     entregasEmAndamento.map((entrega: IItem) => (
                                         <ItemCardComponent key={entrega.id}
-                                            clientName={entrega.client.name}
+                                            username={entrega.client.name}
                                             itemName={entrega.item_name}
                                             dataPedido={entrega.created_at}
                                             image={entrega.image}
@@ -135,7 +135,7 @@ export function EntregadorPage() {
                                 (
                                     entregasFinalizada.map((entrega: IItem) => (
                                         <ItemCardComponent key={entrega.id}
-                                            clientName={entrega.client.name}
+                                            username={entrega.client.name}
                                             itemName={entrega.item_name}
                                             dataPedido={entrega.created_at}
                                             image={entrega.image}

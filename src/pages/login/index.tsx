@@ -82,9 +82,9 @@ export function LoginPage() {
       if (typeError.status === 400) {
         toast({
           title: "Acesso negado!",
-          description: typeError.data.message,
+          description: "Usuario ou Senha Invalido!",
           status: "error",
-          duration: 9000,
+          duration: 3000,
           isClosable: true,
         });
       }
