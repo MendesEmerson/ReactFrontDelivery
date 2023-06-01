@@ -74,16 +74,12 @@ export function CadastroPage() {
         if (selectorAccount === "Cliente") {
           const response = await axiosConfig.post("/client", userCreate);
           if (response.status === 201) {
-            const authToken = response.data;
-            login(authToken);
             handleOnClickNavigateLogin();
           }
         }
         if (selectorAccount === "Entregador") {
           const response = await axiosConfig.post("/deliveryman", userCreate);
           if (response.status === 201) {
-            const authToken = response.data;
-            login(authToken);
             handleOnClickNavigateLogin();
           }
         }

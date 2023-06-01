@@ -23,7 +23,7 @@ export function EntregadorPage() {
     const [entregasEmAndamento, setEntregasEmAndamento] = useState<IItem[]>()
     const [entregasFinalizada, setEntregasFinalizada] = useState<IItem[]>()
 
-
+    const imagem = "https://blog.hurb.com/wp-content/uploads/2020/02/feijoada-1140x675.png"
 
 
     useEffect(() => {
@@ -93,11 +93,13 @@ export function EntregadorPage() {
                             entregasDisponiveis && entregasDisponiveis.length ?
                                 (
                                     entregasDisponiveis.map((entrega: IItem) => (
-                                        <ItemCardComponent key={entrega.id}
+                                        <ItemCardComponent
+                                            key={entrega.id}
+                                            typeCard="Cliente"
                                             username={entrega.client.name}
                                             itemName={entrega.item_name}
                                             dataPedido={entrega.created_at}
-                                            image={entrega.image}
+                                            image={imagem}
                                         />
                                     ))
                                 ) :
@@ -114,11 +116,13 @@ export function EntregadorPage() {
                             entregasEmAndamento && entregasEmAndamento.length ?
                                 (
                                     entregasEmAndamento.map((entrega: IItem) => (
-                                        <ItemCardComponent key={entrega.id}
+                                        <ItemCardComponent
+                                            key={entrega.id}
+                                            typeCard="Cliente"
                                             username={entrega.client.name}
                                             itemName={entrega.item_name}
                                             dataPedido={entrega.created_at}
-                                            image={entrega.image}
+                                            image={imagem}
                                         />
                                     ))
                                 ) :
@@ -134,11 +138,14 @@ export function EntregadorPage() {
                             entregasFinalizada && entregasFinalizada.length ?
                                 (
                                     entregasFinalizada.map((entrega: IItem) => (
-                                        <ItemCardComponent key={entrega.id}
+                                        <ItemCardComponent
+                                            key={entrega.id}
+                                            typeCard="Cliente"
                                             username={entrega.client.name}
                                             itemName={entrega.item_name}
                                             dataPedido={entrega.created_at}
-                                            image={entrega.image}
+                                            dataFinalização={entrega.end_at}
+                                            image={imagem}
                                         />
                                     ))
                                 ) :

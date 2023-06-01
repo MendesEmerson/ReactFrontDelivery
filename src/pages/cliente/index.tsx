@@ -148,6 +148,7 @@ export function ClientePage() {
                       // clientName={entrega.deliveryman.name}
                       itemName={entrega.item_name}
                       dataPedido={entrega.created_at}
+                      dataFinalização={entrega.end_at}
                       image={imagem}
                     />
                   ))

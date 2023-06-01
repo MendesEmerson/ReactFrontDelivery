@@ -19,9 +19,9 @@ export function ItemCardComponent({
     typeCard
 }: IItemCardProps) {
     return (
-        <Flex flexDirection="column" justifyContent="center" margin="25px" width={"90%"} alignItems={"center"}>
+        <Flex flexDirection="column" justifyContent="center" margin="15px" width={"90%"} alignItems={"center"}>
             <Card
-                padding={"15px"}
+                padding={"10px"}
                 direction={{ base: "column", sm: "row" }}
                 overflow="hidden"
                 variant="outline"
@@ -29,26 +29,32 @@ export function ItemCardComponent({
                 justifyContent={"center"}
                 alignItems={"center"}
                 height={"auto"}
-                width={"85%"}
+                width={"80%"}
                 maxWidth={"425px"}
                 bg={"whiteAlpha.300"}
                 borderRadius={"24px"}
                 _hover={{ transform: "scale(1.05)", transition: "transform 0.25s" }}
+                textAlign={"start"}
             >
                 <Flex alignItems={'Center'}>
                     <Image objectFit={"cover"} borderRadius={"12px"} boxSize={"90px"} src={image} />
 
 
                     <Stack>
-                        <CardBody>
-                            <Heading size="md">{itemName}</Heading>
+                        <CardBody display="flex" flexDirection="column" gap="8px">
+                            <Heading textAlign="center" size="md">{itemName}</Heading>
 
-                            {username && username?.length > 0 ? (<Text > {typeCard}: {username}</Text>): null}
-                            <Text >Data do pedido: {dataPedido}</Text>
+                            {username && username.length > 0 && (
+                                <Text>{typeCard}: {username}</Text>
+                            )}
+
+                            <Text>Pedido Realizado: {dataPedido}</Text>
+
                             {dataFinalização && (
-                                <Text>{dataFinalização}</Text>
+                                <Text>Pedido Finalizado: {dataFinalização}</Text>
                             )}
                         </CardBody>
+
                     </Stack>
                 </Flex>
 
