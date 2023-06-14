@@ -10,8 +10,8 @@ export function ContactPage() {
 
     >
       <CardComponent
-        description="Desenvolvedor Fullstack | Node | React | Java"
-        anotherDescription='"Tente mover o mundo, o primeiro passo será mover você mesmo".'
+        description="Desenvolvedor Fullstack | Node | React | Java."
+        anotherDescription='"Tente mover o mundo, o primeiro passo será mover a si mesmo".'
         githubLink="https://github.com/mendesemerson"
         linkedinLink="https://linkedin.com/in/mendesemerson/"
         src="https://avatars.githubusercontent.com/u/97401294?v=4"
