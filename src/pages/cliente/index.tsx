@@ -142,15 +142,20 @@ export function ClientePage() {
               pedidosFinalizados && pedidosFinalizados.length ?
                 (
                   pedidosFinalizados.map((entrega: IItem) => (
-                    <ItemCardComponent key={entrega.id}
-                      typeCard="Entregador"
 
-                      // clientName={entrega.deliveryman.name}
-                      itemName={entrega.item_name}
-                      dataPedido={entrega.created_at}
-                      dataFinalização={entrega.end_at}
-                      image={imagem}
-                    />
+                    entrega.end_at !== null ? (
+                      <ItemCardComponent key={entrega.id}
+                        typeCard="Entregador"
+
+                        username={entrega.deliveryman?.name}
+                        itemName={entrega.item_name}
+                        dataPedido={entrega.created_at}
+                        dataFinalização={entrega.end_at}
+                        image={imagem}
+                      />
+                    ) : (null)
+
+
                   ))
                 ) :
                 (
