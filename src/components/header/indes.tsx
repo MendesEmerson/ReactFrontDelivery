@@ -1,5 +1,5 @@
 import { Box, Button, Flex, Icon, Menu, MenuButton, MenuItem, MenuList, Text, Wrap } from "@chakra-ui/react";
-import { MdLogin, MdLogout, MdPersonAddAlt, MdShoppingCart, MdArrowDropDown } from "react-icons/md"
+import { MdLogin, MdLogout, MdPersonAddAlt, MdShoppingCart, MdArrowDropDown, MdHome } from "react-icons/md"
 import { ButtonComponent } from "../button";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
@@ -17,10 +17,16 @@ export function HeaderComponent() {
         navigate("/cadastro")
     }
 
+    function handleNavigationHome() {
+        navigate("/")
+    }
+
     function handleLogout() {
         logout()
         navigate("/login")
     }
+
+
 
     console.log(isLoggedIn)
 
@@ -90,6 +96,9 @@ export function HeaderComponent() {
                         justifyContent={"flex-end"}
 
                     >
+                        <Wrap paddingRight="50px">
+                            <ButtonComponent icon={MdHome} label="Home" onClick={handleNavigationHome}/>
+                        </Wrap>
                         <Wrap width={"120px"} margin={"0 10px"}>
                             <ButtonComponent icon={MdLogin} label="Login" onClick={handleNavigationLogin} />
                         </Wrap>
