@@ -39,6 +39,10 @@ export function LoginPage() {
     navigate("/entregador");
   };
 
+  const handleOnClickNavigateRestaurante = (restaurant_id: string): void => {
+    navigate(`/restaurante/${restaurant_id}`);
+  };
+
 
   async function handleFormLogin(e: any) {
     e.preventDefault();
@@ -55,13 +59,13 @@ export function LoginPage() {
           userCreate
         );
 
-        console.log(response.status)
-
-
         if (response.status === 200) {
-          const authToken = response.data;
-          login(authToken);
+          const authToken = response.data.token;
+          const accountType = response.data.client.accountType
+          const usernameAccount = response.data.client.username
+          login(authToken, accountType,usernameAccount);
           handleOnClickNavigateClient();
+          console.log(authToken)
         }
       }
 
@@ -72,9 +76,28 @@ export function LoginPage() {
         );
 
         if (response.status === 200) {
-          const authToken = response.data;
-          login(authToken);
+          const authToken = response.data.token;
+          const accountType = response.data.deliveryman.accountType
+          const usernameAccount = response.data.deliveryman.username
+          login(authToken, accountType,usernameAccount);
           handleOnClickNavigateEntregador();
+          console.log(authToken)
+        }
+      }
+
+      if (selectorAccount === "Restaurante") {
+        const response = await axiosConfig.post(
+          "/login/restaurant",
+          userCreate
+        );
+
+        if (response.status === 200) {
+          const authToken = response.data.token;
+          const accountType = response.data.restaurant.accountType
+          const restaurant_id = response.data.restaurant.id
+          const usernameAccount = response.data.restaurant.name
+          login(authToken, accountType,usernameAccount);
+          handleOnClickNavigateRestaurante(restaurant_id);
         }
       }
     } catch (error: any) {
@@ -153,8 +176,11 @@ export function LoginPage() {
                   )}
                 </InputRightElement>
               </InputGroup>
-              <FormLabel mt="2">Lembrar minha conta?</FormLabel>
-              <Switch id="choice" />
+              <Flex alignItems={"center"}>
+                <FormLabel mt="2">Lembrar minha conta?</FormLabel>
+                <Switch id="choice" />
+              </Flex>
+
               <RadioGroup value={selectorAccount} padding={"4px"}>
                 <Stack direction="row">
                   <Radio
@@ -168,6 +194,12 @@ export function LoginPage() {
                     onChange={() => setSelectorAccount("Cliente")}
                   >
                     Cliente
+                  </Radio>
+                  <Radio
+                    value="Restaurante"
+                    onChange={() => setSelectorAccount("Restaurante")}
+                  >
+                    Restaurante
                   </Radio>
                 </Stack>
               </RadioGroup>

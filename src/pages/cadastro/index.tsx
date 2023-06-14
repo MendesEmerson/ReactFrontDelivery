@@ -42,7 +42,7 @@ export function CadastroPage() {
 
   async function handleCreateUser(e: any) {
     e.preventDefault();
-    
+
     const userCreate = {
       username,
       password,
@@ -79,6 +79,12 @@ export function CadastroPage() {
         }
         if (selectorAccount === "Entregador") {
           const response = await axiosConfig.post("/deliveryman", userCreate);
+          if (response.status === 201) {
+            handleOnClickNavigateLogin();
+          }
+        }
+        if (selectorAccount === "Restaurante") {
+          const response = await axiosConfig.post("/restaurant", userCreate);
           if (response.status === 201) {
             handleOnClickNavigateLogin();
           }
@@ -184,6 +190,12 @@ export function CadastroPage() {
                     onChange={() => setSelectorAccount("Cliente")}
                   >
                     Cliente
+                  </Radio>
+                  <Radio
+                    value="Restaurante"
+                    onChange={() => setSelectorAccount("Restaurante")}
+                  >
+                    Restaurante
                   </Radio>
                 </Stack>
               </RadioGroup>
