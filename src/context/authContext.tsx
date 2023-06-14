@@ -3,8 +3,10 @@ import { createContext, useState, useContext, ReactNode, useEffect } from "react
 interface AuthContextData {
   token: string | null;
   isLoggedIn: boolean;
-  login: (token: string) => void;
+  login: (token: string, accountType: string, username: string) => void;
   logout: () => void;
+  accountType: string | null
+  username: string | null
 }
 
 const AuthContext = createContext<AuthContextData | undefined>(undefined);
@@ -14,33 +16,54 @@ interface AuthProviderProps {
 }
 
 export function AuthProvider({ children }: AuthProviderProps) {
+
   const [token, setToken] = useState<string | null>(() => {
     const storedToken = localStorage.getItem("token");
     return storedToken ? `bearer ${storedToken}` : null;
   });
 
-  const login = (newToken: string) => {
+  const [accountType, setAccountType] = useState<string | null>(() => {
+    const storedAccountType = localStorage.getItem("accountType")
+    return storedAccountType ? storedAccountType : null
+  })
+
+  const [username, setUsername] = useState<string | null>(() => {
+    const storedUsername = localStorage.getItem("username")
+    return storedUsername ? storedUsername : null
+  })
+
+  const login = (newToken: string, accountType: string, username: string) => {
     setToken(`bearer ${newToken}`);
+    setAccountType(accountType)
+    setUsername(username)
   };
 
   const logout = () => {
     setToken(null);
     localStorage.removeItem("token");
+    setAccountType(null)
+    localStorage.removeItem("accountType")
+    setUsername(null)
+    localStorage.removeItem("username")
   };
 
   const isLoggedIn = !!token;
 
   useEffect(() => {
-    if (token) {
+    if (token && accountType && username) {
       localStorage.setItem("token", token.replace("bearer ", ""));
+      localStorage.setItem("accountType", accountType)
+      localStorage.setItem("username", username)
     }
-  }, [token]);
+  }, [accountType, token, username]);
 
   const authContextValue: AuthContextData = {
     token,
     isLoggedIn,
     login,
     logout,
+    accountType,
+    username
   };
 
   return <AuthContext.Provider value={authContextValue}>{children}</AuthContext.Provider>;
