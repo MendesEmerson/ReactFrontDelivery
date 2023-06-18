@@ -1,14 +1,6 @@
-import { Input, SystemStyleObject } from "@chakra-ui/react";
+import { Input } from "@chakra-ui/react";
+import { IImputComponent } from "../../interfaces/components/inputComponent";
 
-interface IImputComponent {
-  border: string;
-  borderRadius: string;
-  placeholder: string;
-  type?: string;
-  _hover: SystemStyleObject;
-  value: string | number
-  onChange: (e:any) => void
-}
 
 export function InputComponent({ border, borderRadius, placeholder, type, value, onChange, _hover }: IImputComponent) {
   return (

@@ -1,16 +1,9 @@
 import { Button, Card, CardBody, Flex, Heading, Image, Stack, Text } from "@chakra-ui/react";
 import { useAuth } from "../../context/authContext";
+import { CardListProps } from "../../interfaces/components/cardLIstItemsComponent";
 
 
-interface CardListProps {
-    item_name: string
-    description: string
-    price: number
-    image_url: string
-    onClickCard: () => void
-}
-
-export function CardListRestaurantComponent({ description, item_name, price, image_url,onClickCard }: CardListProps) {
+export function CardListRestaurantComponent({ id, description, item_name, price, image_url,onClickCard }: CardListProps) {
 
     const { accountType } = useAuth()
 
@@ -36,7 +29,7 @@ export function CardListRestaurantComponent({ description, item_name, price, ima
                 />
 
                 <Stack width={"100%"}>
-                    <CardBody display="flex" flexDirection="row" onClick={handleClickCard}>
+                    <CardBody id={id} display="flex" flexDirection="row" onClick={handleClickCard}>
                         <Flex
                             flexDirection="column"
                             alignItems="flex-start"

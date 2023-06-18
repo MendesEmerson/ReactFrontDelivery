@@ -1,13 +1,10 @@
-import { Flex, Stack } from "@chakra-ui/layout";
+import { Flex } from "@chakra-ui/layout";
 import { Button, Card, CardBody, CardFooter, Divider, Image, Text } from "@chakra-ui/react";
+import { ICardFood } from "../../interfaces/components/cardFoodComponent";
 
-interface IItemsProps {
-    item_name: string
-    image: string
-    onClick?: () => void
-}
 
-export function CardFoodComponent({ item_name, image, onClick }: IItemsProps) {
+
+export function CardFoodComponent({ item_name, image, onClick }: ICardFood) {
     return (
         <Flex flexDirection="column" justifyContent="center" margin="15px" width={"90%"} alignItems={"center"}>
             <Card

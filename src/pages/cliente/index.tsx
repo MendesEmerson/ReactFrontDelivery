@@ -7,74 +7,68 @@ import {
   Tabs,
   Text,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { ItemCardComponent } from "../../components/cardItem";
 import axiosConfig from "../../axiosConfig";
+import { useRecoilState } from "recoil";
+import { pedidosEmAndamentoState, pedidosFinalizadosState, pedidosRealizadosState } from "../../states/atom";
+import { IItem } from "../../interfaces/itemInterface";
 
 
-interface IDeliveryman {
-  name: string
-}
-
-interface IItem {
-  id: string;
-  item_name: string;
-  deliveryman?: IDeliveryman;
-  created_at: string;
-  end_at?: string
-  image: string
-}
 
 export function ClientePage() {
 
-  const [pedidosRealizados, setpedidosRealizados] = useState<IItem[]>()
-  const [pedidosEmAndamento, setPedidosEmAndamento] = useState<IItem[]>()
-  const [pedidosFinalizados, setPedidosFinalizados] = useState<IItem[]>()
+  const [pedidosRealizados, setpedidosRealizados] = useRecoilState(pedidosRealizadosState)
+  const [pedidosEmAndamento, setPedidosEmAndamento] = useRecoilState(pedidosEmAndamentoState)
+  const [pedidosFinalizados, setPedidosFinalizados] = useRecoilState(pedidosFinalizadosState)
 
   const imagem = "https://blog.hurb.com/wp-content/uploads/2020/02/feijoada-1140x675.png"
 
-  useEffect(() => {
-    async function HandlePedidosRealizados() {
-      try {
-        const response = await axiosConfig.get("/client/deliveries")
-        const itensDisponiveis = response.data
+  async function HandlePedidosRealizados() {
+    try {
+      const response = await axiosConfig.get("/client/deliveries")
+      const itensDisponiveis = response.data
 
-        setpedidosRealizados(itensDisponiveis)
+      setpedidosRealizados(itensDisponiveis)
 
-      } catch (error) {
-        console.log(error)
-      }
+    } catch (error) {
+      console.log(error)
     }
-    HandlePedidosRealizados()
-  }, [])
+  }
+
+  async function HandlePedidosEmAndamento() {
+    try {
+      const response = await axiosConfig.get("/client/deliveries/accepted")
+      const itensDisponiveis = response.data
+
+      setPedidosEmAndamento(itensDisponiveis)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async function HandlePedidosFinalizados() {
+    try {
+      const response = await axiosConfig.get("/client/deliveries")
+      const itensDisponiveis = response.data
+
+      setPedidosFinalizados(itensDisponiveis)
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    HandlePedidosRealizados();
+  }, []);
 
 
   useEffect(() => {
-    async function HandlePedidosEmAndamento() {
-      try {
-        const response = await axiosConfig.get("/client/deliveries/accepted")
-        const itensDisponiveis = response.data
-
-        setPedidosEmAndamento(itensDisponiveis)
-      } catch (error) {
-        console.log(error)
-      }
-    }
     HandlePedidosEmAndamento()
   }, [])
 
   useEffect(() => {
-    async function HandlePedidosFinalizados() {
-      try {
-        const response = await axiosConfig.get("/client/deliveries")
-        const itensDisponiveis = response.data
-
-        setPedidosFinalizados(itensDisponiveis)
-
-      } catch (error) {
-        console.log(error)
-      }
-    }
     HandlePedidosFinalizados()
   }, [])
 

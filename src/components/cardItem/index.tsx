@@ -1,14 +1,8 @@
 import { Flex, Heading, Stack, Text } from "@chakra-ui/layout";
 import { Card, CardBody, Image } from "@chakra-ui/react";
+import { IItemCardProps } from "../../interfaces/components/itemCardComponent";
 
-interface IItemCardProps {
-    itemName: string;
-    username?: string;
-    dataPedido: string;
-    dataFinalização?: string;
-    image: string
-    typeCard: "Entregador" | "Cliente"
-}
+
 
 export function ItemCardComponent({
     username,
