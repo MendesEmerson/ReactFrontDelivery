@@ -1,10 +1,8 @@
-import { IDeliveryman } from "./deliverymanInterface";
 
 export interface IItem {
-    id: string;
-    item_name: string;
-    deliveryman?: IDeliveryman;
-    created_at: string;
-    end_at?: string
-    image: string
-  }
+  id: string
+  item_name: string
+  category: string
+  description: string
+  price: number
+}

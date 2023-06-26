@@ -8,11 +8,12 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
-import { ItemCardComponent } from "../../components/cardItem";
-import axiosConfig from "../../axiosConfig";
 import { useRecoilState } from "recoil";
-import { pedidosEmAndamentoState, pedidosFinalizadosState, pedidosRealizadosState } from "../../states/atom";
-import { IItem } from "../../interfaces/itemInterface";
+import { pedidosEmAndamentoState, pedidosFinalizadosState, pedidosRealizadosState } from "../../../states/atom";
+import axiosConfig from "../../../axiosConfig";
+import { ItemCardComponent } from "../../../components/cardItem";
+import { IItem } from "../../../interfaces/itemInterface";
+
 
 
 

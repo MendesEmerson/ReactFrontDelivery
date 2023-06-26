@@ -13,31 +13,33 @@ export function CardDeveloperComponent({
 }: ICardComponentProps) {
   return (
     <Card
-      padding={"20px 10px"}
+      padding={"10px"}
+      margin={"20px"}
       direction={{ base: "column", sm: "row" }}
       overflow="hidden"
       variant="outline"
       display={"flex"}
       justifyContent={"center"}
-      height={"45%"}
-      width={"45%"}
+      height={"40%"}
+      width={"90%"}
       bg={"whiteAlpha.100"}
       borderRadius={"12px"}
-      _hover={{transform: "scale(1.05)", transition:"transform 0.2s"}}
+      _hover={{ transform: "scale(1.05)", transition: "transform 0.2s" }}
     >
-      <div>
-        <Flex>
-          <AvatarComponent            
-            description={description}
-            anotherDescription={anotherDescription}
-            githubLink={github_link}
-            whatsappLink={whatsapp_link}
-            linkedinLink={linkedin_link}
-            src={src}
-            name={name}
-          />
-        </Flex>
-      </div>
+
+      <Flex
+        alignItems={"center"}
+        justifyContent={"center"}>
+        <AvatarComponent
+          description={description}
+          anotherDescription={anotherDescription}
+          githubLink={github_link}
+          whatsappLink={whatsapp_link}
+          linkedinLink={linkedin_link}
+          src={src}
+          name={name}
+        />
+      </Flex>
     </Card>
   );
 }

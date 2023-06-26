@@ -1,32 +1,72 @@
-import { Flex } from "@chakra-ui/react";
-import { CardComponent } from "../../components/card";
+import { Flex, Text } from "@chakra-ui/react"
+import { CardListRestaurant } from "../../components/carListRestaurant"
+import { useRecoilState } from "recoil"
+import { listaDeRestaurantesState } from "../../states/atom"
+import axiosConfig from "../../axiosConfig"
+import { useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 
-export function ContactPage() {
-  return (
-    <Flex
-      justifyContent={"space-around"}
-      alignItems={"center"}
-      minH={"90vh"}
+export function RestaurantListPage() {
+    const navigate = useNavigate()
+    const [listaDeRestaurantes, setListaDeResaurantes] = useRecoilState(listaDeRestaurantesState)
 
-    >
-      <CardComponent
-        description="Desenvolvedor Fullstack | Node | React | Java."
-        anotherDescription='"Tente mover o mundo, o primeiro passo será mover a si mesmo".'
-        githubLink="https://github.com/mendesemerson"
-        linkedinLink="https://linkedin.com/in/mendesemerson/"
-        src="https://avatars.githubusercontent.com/u/97401294?v=4"
-        whatsappLink="https://wa.me/5521968410059"
-        name="Emerson Mendes"
-      />
-      <CardComponent
-        description="Desenvolvedor Fullstack | Node | React | Java."
-        anotherDescription='"Aproveite todas as oportunidades; onde não há, faça-o você mesmo".'
-        githubLink="https://github.com/juancassiano"
-        linkedinLink="https://linkedin.com/in/juan-cassiano/"
-        src="https://avatars.githubusercontent.com/u/59894338?v=4"
-        whatsappLink="https://wa.me/5521983015177"
-        name="Juan Cassiano"
-      />
-    </Flex>
-  );
+    const imagem = "https://static.vecteezy.com/ti/vetor-gratis/p3/2662957-restaurante-logo-design-gratis-vetor.jpg"
+
+    function handleNavigateToRestaurant(restaurant_id: string) {
+        navigate(`/restaurante/${restaurant_id}`)
+    }
+
+    async function HandleListaDeRestaurantes() {
+        try {
+            const response = await axiosConfig.get("/restaurants")
+            const restaurantesDisponiveis = response.data
+
+            setListaDeResaurantes(restaurantesDisponiveis)
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        HandleListaDeRestaurantes()
+    }, [])
+
+
+    return(
+        <Flex
+            minH={"90vh"}
+            width={"100%"}
+            justifyContent={"flex-start"}
+            alignItems={"center"}
+            flexDirection={"column"}
+        >
+            {listaDeRestaurantes.length > 0 ?
+                (
+                    listaDeRestaurantes.map((restaurant) => (
+                        <CardListRestaurant
+                            key={restaurant.id}
+                            image={imagem}
+                            imageDescription=""
+                            onClick={() => handleNavigateToRestaurant(restaurant.id)}
+                            restaurantDescription={restaurant.description}
+                            restaurantName={restaurant.name}
+
+                        />
+                    ))
+                ) :
+                (
+                    <Text 
+                    margin="10px"
+                    fontSize="32px"
+                    >
+                        Nenhum restaurante aberto!
+                    </Text>
+                )
+            }
+
+
+
+        </Flex>
+    )
 }

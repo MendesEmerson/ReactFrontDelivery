@@ -3,7 +3,7 @@ import { useAuth } from "../../context/authContext";
 import { CardListProps } from "../../interfaces/components/cardLIstItemsComponent";
 
 
-export function CardListRestaurantComponent({ id, description, item_name, price, image_url,onClickCard }: CardListProps) {
+export function CardListItemComponent({ type, id, description, item_name, price, image_url, onClickCard, onClickButton }: CardListProps) {
 
     const { accountType } = useAuth()
 
@@ -14,7 +14,12 @@ export function CardListRestaurantComponent({ id, description, item_name, price,
     };
 
     return (
-        <Flex justifyContent={"center"} margin={"20px 0"}>
+        <Flex
+            justifyContent={"center"}
+            margin={"20px 0"}
+            width={"100%"}
+        >
+
             <Card
                 direction={{ base: 'column', sm: 'row' }}
                 overflow='hidden'
@@ -42,10 +47,15 @@ export function CardListRestaurantComponent({ id, description, item_name, price,
                             </Text>
                         </Flex>
                         <Flex width="30%" flexDirection="column" alignItems="flex-end" justifyContent="space-between">
-                            <Button variant='solid' colorScheme='blue'>
-                                Comprar
+                            <Button variant='solid' colorScheme='blue' onClick={onClickButton}>
+                                {type === "restaurant" && (
+                                    "Adicionar"
+                                )}
+                                {type === "cart" && (
+                                    "Excluir"
+                                )}
                             </Button>
-                            <Text padding="0 18px">
+                            <Text fontSize="20px" padding="0 18px">
                                 R${price}
                             </Text>
                         </Flex>

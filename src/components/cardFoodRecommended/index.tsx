@@ -4,7 +4,7 @@ import { ICardFood } from "../../interfaces/components/cardFoodComponent";
 
 
 
-export function CardFoodComponent({ item_name, image, onClick }: ICardFood) {
+export function CardFoodRecommendedComponent({ item_name, image, onClick }: ICardFood) {
     return (
         <Flex flexDirection="column" justifyContent="center" margin="15px" width={"90%"} alignItems={"center"}>
             <Card

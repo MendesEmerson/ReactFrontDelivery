@@ -16,13 +16,11 @@ import {
 import { MdPersonAdd, MdVisibility, MdVisibilityOff } from "react-icons/md";
 import { InputComponent } from "../../components/input";
 import { ButtonComponent } from "../../components/button";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/authContext";
 import axiosConfig from "../../axiosConfig";
 
 export function CadastroPage() {
-  const { login } = useAuth();
   const toast = useToast()
   const [showPassword, setShowPassword] = useState(false);
   const [selectorAccount, setSelectorAccount] = useState<string>("Entregador");
@@ -40,16 +38,25 @@ export function CadastroPage() {
     setShowPassword(!showPassword);
   };
 
-  async function handleCreateUser(e: any) {
+  function handleAlertSignInConfirm() {
+    toast({
+      title: "Cadastro concluido!",
+      description: "Seu cadastro foi concluido com sucesso",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+    });
+  }
+  
+  async function handleCreateUser(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-
+  
     const userCreate = {
       username,
       password,
       name,
     };
-
-
+  
     if (!username || !password || !name) {
       toast({
         title: "Campos Obrigatórios!",
@@ -58,7 +65,7 @@ export function CadastroPage() {
         duration: 3000,
         isClosable: true,
       });
-    } else if (password != checkPassword) {
+    } else if (password !== checkPassword) {
       toast({
         title: "Senhas diferentes!",
         description: "Verifique os campos Senha e Confirme sua senha",
@@ -67,26 +74,24 @@ export function CadastroPage() {
         isClosable: true,
       });
     } else {
-
-
-
       try {
         if (selectorAccount === "Cliente") {
           const response = await axiosConfig.post("/client", userCreate);
           if (response.status === 201) {
             handleOnClickNavigateLogin();
+            handleAlertSignInConfirm();
           }
-        }
-        if (selectorAccount === "Entregador") {
+        } else if (selectorAccount === "Entregador") {
           const response = await axiosConfig.post("/deliveryman", userCreate);
           if (response.status === 201) {
             handleOnClickNavigateLogin();
+            handleAlertSignInConfirm();
           }
-        }
-        if (selectorAccount === "Restaurante") {
+        } else if (selectorAccount === "Restaurante") {
           const response = await axiosConfig.post("/restaurant", userCreate);
           if (response.status === 201) {
             handleOnClickNavigateLogin();
+            handleAlertSignInConfirm();
           }
         }
       } catch (error) {
@@ -94,7 +99,7 @@ export function CadastroPage() {
       }
     }
   }
-
+  
   return (
     <Flex
       height={"100vh"}
@@ -102,14 +107,13 @@ export function CadastroPage() {
       justifyContent={"center"}
       alignItems={"center"}
       padding={"10px"}
-      margin={"10px"}
     >
       <Flex
         justifyContent={"center"}
         alignItems={"center"}
         bg="whiteAlpha.400"
         p="4"
-        width={"30%"}
+        width={"auto"}
         height={"auto"}
         opacity={"1"}
         borderRadius={"20px"}

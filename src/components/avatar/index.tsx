@@ -29,13 +29,14 @@ export function AvatarComponent({
   return (
     <div>
       <WrapItem
+      
         display={"flex"}
         justifyContent={"center"}
         alignItems={"center"}
       >
         <Avatar
           objectFit="cover"
-          maxW={{ base: "100%", sm: "200px" }}
+          maxW={{ base: "50%", sm: "200px" }}
           size="3xl"
           name={name}
           src={src}

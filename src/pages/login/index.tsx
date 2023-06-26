@@ -17,10 +17,11 @@ import {
 import { MdLock, MdLogin, MdVisibility, MdVisibilityOff } from "react-icons/md";
 import { InputComponent } from "../../components/input";
 import { ButtonComponent } from "../../components/button";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { useAuth } from "../../context/authContext";
 import axiosConfig from "../../axiosConfig";
 import { useNavigate } from "react-router";
+import { AxiosError } from "axios";
 
 export function LoginPage() {
   const { login } = useAuth();
@@ -32,7 +33,7 @@ export function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleOnClickNavigateClient = () => {
-    navigate("/cliente");
+    navigate("/");
   };
 
   const handleOnClickNavigateEntregador = () => {
@@ -44,7 +45,7 @@ export function LoginPage() {
   };
 
 
-  async function handleFormLogin(e: any) {
+  async function handleFormLogin(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     const userCreate = {
@@ -63,9 +64,8 @@ export function LoginPage() {
           const authToken = response.data.token;
           const accountType = response.data.client.accountType
           const usernameAccount = response.data.client.username
-          login(authToken, accountType,usernameAccount);
+          login(authToken, accountType, usernameAccount);
           handleOnClickNavigateClient();
-          console.log(authToken)
         }
       }
 
@@ -79,9 +79,8 @@ export function LoginPage() {
           const authToken = response.data.token;
           const accountType = response.data.deliveryman.accountType
           const usernameAccount = response.data.deliveryman.username
-          login(authToken, accountType,usernameAccount);
+          login(authToken, accountType, usernameAccount);
           handleOnClickNavigateEntregador();
-          console.log(authToken)
         }
       }
 
@@ -96,22 +95,26 @@ export function LoginPage() {
           const accountType = response.data.restaurant.accountType
           const restaurant_id = response.data.restaurant.id
           const usernameAccount = response.data.restaurant.name
-          login(authToken, accountType,usernameAccount);
+          login(authToken, accountType, usernameAccount);
           handleOnClickNavigateRestaurante(restaurant_id);
         }
       }
-    } catch (error: any) {
-      const typeError = error.response
-      if (typeError.status === 400) {
-        toast({
-          title: "Acesso negado!",
-          description: "Usuario ou Senha Invalido!",
-          status: "error",
-          duration: 3000,
-          isClosable: true,
-        });
+    } catch (error: unknown) {
+      if (error instanceof AxiosError) {
+        const { response } = error;
+
+        if (response && response.status === 400) {
+          toast({
+            title: "Acesso negado!",
+            description: "Usuário ou Senha Inválido!",
+            status: "error",
+            duration: 3000,
+            isClosable: true,
+          });
+        }
+      } else {
+        console.log(error);
       }
-      console.log(typeError);
     }
   }
 
@@ -126,14 +129,13 @@ export function LoginPage() {
       justifyContent={"center"}
       alignItems={"center"}
       padding={"10px"}
-      margin={"10px"}
     >
       <Flex
         justifyContent={"center"}
         alignItems={"center"}
         bg="whiteAlpha.400"
         p="4"
-        width={"30%"}
+        width={"auto"}
         height={"auto"}
         opacity={"1"}
         borderRadius={"20px"}

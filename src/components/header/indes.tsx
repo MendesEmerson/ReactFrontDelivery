@@ -1,13 +1,14 @@
 import { Box, Button, Flex, Icon, Menu, MenuButton, MenuItem, MenuList, Text, Wrap } from "@chakra-ui/react";
-import { MdLogin, MdLogout, MdPersonAddAlt, MdShoppingCart, MdArrowDropDown, MdHome } from "react-icons/md"
+import { MdLogin, MdLogout, MdPersonAddAlt, MdShoppingCart, MdArrowDropDown, MdHome, MdArrowBack } from "react-icons/md"
 import { ButtonComponent } from "../button";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
 
 export function HeaderComponent() {
 
-    const { isLoggedIn, logout } = useAuth()
+    const { isLoggedIn, logout, accountType } = useAuth()
     const navigate = useNavigate()
+    const currentUri = window.location.pathname
 
     function handleNavigationLogin() {
         navigate("/login")
@@ -21,9 +22,21 @@ export function HeaderComponent() {
         navigate("/")
     }
 
+    function handleNavigationBack() {
+        navigate(-1)
+    }
+
     function handleLogout() {
         logout()
         navigate("/login")
+    }
+
+    function handleNavigationDeliveries() {
+        navigate("/cliente/pedidos")
+    }
+
+    function handleNavigationCart() {
+        navigate("/cliente/carrinho")
     }
 
 
@@ -44,13 +57,23 @@ export function HeaderComponent() {
                 <Flex
                     width={"50%"}
                     alignItems={"Center"}
-                    justifyContent={"center"}>
+                    justifyContent={"flex-start"}
+                >
+                    {currentUri.startsWith("/restaurante/") && (
+                        <Wrap width={"120px"} margin={"0 20px"}>
+                            <ButtonComponent
+                                icon={MdArrowBack}
+                                label="Voltar"
+                                onClick={handleNavigationBack}
+                            />
+                        </Wrap>
+                    )}
                     <Text
-                        fontSize={"28px"}
+                        fontSize={"24px"}
                         fontWeight={"bold"}
                         align={"center"}
                         color={"white"}
-
+                        margin={"0 20px"}
                     >
                         Delivery Express
                     </Text>
@@ -60,28 +83,46 @@ export function HeaderComponent() {
                 {isLoggedIn ? (
                     <Flex width={"50%"}
                         alignItems={"Center"}
-                        justifyContent={"space-around"}>
-                        <Menu>
-                            <MenuButton
-                                width={"120px"}
-                                as={Button}
-                                rightIcon={<MdArrowDropDown />}
-                            >
-                                Menu
-                            </MenuButton>
-                            <MenuList>
-                                <MenuItem minH='48px'>
-                                    <Icon as={MdShoppingCart} />
-                                    <span>Carrinho</span>
-                                </MenuItem>
-                                <MenuItem minH='40px'>
-                                    <Icon as={MdLogout} />
-                                    <span>Logout</span>
-                                </MenuItem>
-                            </MenuList>
-                        </Menu>
+                        justifyContent={"space-between"}>
+                        {accountType === "Clients" && (
+                            <Flex>
+                                <Wrap paddingRight="50px">
+                                    <ButtonComponent icon={MdHome} label="Home" onClick={handleNavigationHome} />
+                                </Wrap>
+                                <Menu>
+                                    <MenuButton width="120px" as={Button} rightIcon={<MdArrowDropDown />}>
+                                        Menu
+                                    </MenuButton>
 
-                        <Wrap width={"120px"} >
+                                    <MenuList>
+                                        <MenuItem
+                                            minH="48px"
+                                            gap="4px"
+                                            onClick={handleNavigationCart}
+                                        >
+                                            <Icon as={MdShoppingCart} />
+                                            <span>Carrinho</span>
+                                        </MenuItem>
+                                        <MenuItem
+                                            minH="48px"
+                                            gap="4px"
+                                            onClick={handleNavigationDeliveries}
+                                        >
+                                            <Icon as={MdShoppingCart} />
+                                            <span>Meus Pedidos</span>
+                                        </MenuItem>
+                                    </MenuList>
+
+                                </Menu>
+                            </Flex>
+
+                        )}
+
+                        <Wrap
+                            width={"120px"}
+                            marginLeft="auto"
+                            marginRight="20px"
+                        >
                             <ButtonComponent
                                 icon={MdLogout}
                                 label="Logout"
@@ -97,7 +138,7 @@ export function HeaderComponent() {
 
                     >
                         <Wrap paddingRight="50px">
-                            <ButtonComponent icon={MdHome} label="Home" onClick={handleNavigationHome}/>
+                            <ButtonComponent icon={MdHome} label="Home" onClick={handleNavigationHome} />
                         </Wrap>
                         <Wrap width={"120px"} margin={"0 10px"}>
                             <ButtonComponent icon={MdLogin} label="Login" onClick={handleNavigationLogin} />
