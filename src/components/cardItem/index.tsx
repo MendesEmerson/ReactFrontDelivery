@@ -1,23 +1,19 @@
 import { Flex, Heading, Stack, Text } from "@chakra-ui/layout";
 import { Card, CardBody, Image } from "@chakra-ui/react";
+import { IItemCardProps } from "../../interfaces/components/itemCardComponent";
 
-interface IItemCardProps {
-    itemName: string;
-    clientName: string;
-    dataPedido: string;
-    dataFinalização?: string;
-    image: string
-}
+
 
 export function ItemCardComponent({
-    clientName,
+    username,
     dataPedido,
     itemName,
     dataFinalização,
-    image
+    image,
+    typeCard
 }: IItemCardProps) {
     return (
-        <Flex flexDirection="column" justifyContent="center" margin="25px" width={"90%"}>
+        <Flex flexDirection="column" justifyContent="center" margin="15px" width={"90%"} alignItems={"center"}>
             <Card
                 padding={"10px"}
                 direction={{ base: "column", sm: "row" }}
@@ -26,27 +22,33 @@ export function ItemCardComponent({
                 display={"flex"}
                 justifyContent={"center"}
                 alignItems={"center"}
-                height={"110px"}
-                width={"100%"}
+                height={"auto"}
+                width={"80%"}
                 maxWidth={"425px"}
-                bg={"blue.400"}
+                bg={"whiteAlpha.300"}
                 borderRadius={"24px"}
-                _hover={{ transform: "scale(1.05)", transition: "transform 0.2s" }}
+                _hover={{ transform: "scale(1.05)", transition: "transform 0.25s" }}
+                textAlign={"start"}
             >
                 <Flex alignItems={'Center'}>
-                    <Image borderRadius={"12px"} boxSize={"85px"} src={image} />
+                    <Image objectFit={"cover"} borderRadius={"12px"} boxSize={"90px"} src={image} />
 
 
                     <Stack>
-                        <CardBody>
-                            <Heading size="md">{itemName}</Heading>
+                        <CardBody display="flex" flexDirection="column" gap="8px">
+                            <Heading textAlign="center" size="md">{itemName}</Heading>
 
-                            <Text >Cliente: {clientName}</Text>
-                            <Text >Data do pedido: {dataPedido}</Text>
+                            {username && username.length > 0 && (
+                                <Text>{typeCard}: {username}</Text>
+                            )}
+
+                            <Text>Pedido Realizado: {dataPedido}</Text>
+
                             {dataFinalização && (
-                                <Text>{dataFinalização}</Text>
+                                <Text>Pedido Finalizado: {dataFinalização}</Text>
                             )}
                         </CardBody>
+
                     </Stack>
                 </Flex>
 

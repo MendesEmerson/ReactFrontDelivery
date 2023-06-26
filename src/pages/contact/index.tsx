@@ -1,23 +1,26 @@
 import { Flex } from "@chakra-ui/react";
-import { CardComponent } from "../../components/card";
+import { CardDeveloperComponent } from "../../components/cardDeveloper";
 
 export function ContactPage() {
   return (
     <Flex
-      justifyContent={"space-around"}
+      flexDirection={"column"}
+      justifyContent={"center"}
       alignItems={"center"}
-      height={"100vh"}
+      width={"auto"}
+      minH={"90vh"}
+
     >
-      <CardComponent
-        description="Desenvolvedor Fullstack | Node | React | Java"
-        anotherDescription='"Tente mover o mundo, o primeiro passo será mover você mesmo".'
+      <CardDeveloperComponent
+        description="Desenvolvedor Fullstack | Node | React | Java."
+        anotherDescription='"Tente mover o mundo, o primeiro passo será mover a si mesmo".'
         githubLink="https://github.com/mendesemerson"
         linkedinLink="https://linkedin.com/in/mendesemerson/"
         src="https://avatars.githubusercontent.com/u/97401294?v=4"
         whatsappLink="https://wa.me/5521968410059"
         name="Emerson Mendes"
       />
-      <CardComponent
+      <CardDeveloperComponent
         description="Desenvolvedor Fullstack | Node | React | Java."
         anotherDescription='"Aproveite todas as oportunidades; onde não há, faça-o você mesmo".'
         githubLink="https://github.com/juancassiano"

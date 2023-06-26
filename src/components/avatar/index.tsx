@@ -14,16 +14,8 @@ import {
   AiFillLinkedin,
   AiOutlineWhatsApp,
 } from "react-icons/ai";
+import { IAvatarProps } from "../../interfaces/components/avatarComponent";
 
-interface IAvatarProps {
-  name: string;
-  linkedinLink: string;
-  githubLink: string;
-  whatsappLink: string;
-  src: string;
-  description: string;
-  anotherDescription?: string;
-}
 
 export function AvatarComponent({
   description,
@@ -37,13 +29,14 @@ export function AvatarComponent({
   return (
     <div>
       <WrapItem
+      
         display={"flex"}
         justifyContent={"center"}
         alignItems={"center"}
       >
         <Avatar
           objectFit="cover"
-          maxW={{ base: "100%", sm: "200px" }}
+          maxW={{ base: "50%", sm: "200px" }}
           size="3xl"
           name={name}
           src={src}

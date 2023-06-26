@@ -1,15 +1,10 @@
-import { Button, IconProps, Icon } from "@chakra-ui/react";
+import { Button, Icon } from "@chakra-ui/react";
+import { ButtonComponentProps } from "../../interfaces/components/buttonComponent";
 
-interface ButtonComponentProps {
-  icon?: React.ElementType<IconProps>;
-  label: string;
-  color?: string;
-  onClick?: () => void
-}
-
-export function ButtonComponent({ icon, label, onClick, color="blue.400"}: ButtonComponentProps) {
+export function ButtonComponent({ icon, label, onClick, type, color = "blue.400" }: ButtonComponentProps) {
   return (
     <Button
+      type={type}
       variant={"outline"}
       margin={"0 10px"}
       width={"100%"}
